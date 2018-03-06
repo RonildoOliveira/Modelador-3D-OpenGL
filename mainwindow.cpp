@@ -12,3 +12,10 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    //ui->pushButton->setEnabled(false);
+    ui->pushButton->setText("Meu botão");
+    ui->label->setText("Teste");
+}

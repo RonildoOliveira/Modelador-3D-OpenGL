@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,9 +13,26 @@ TARGET = Modelador3D
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+LIBS += -lGLU -lglut
 
-HEADERS  += mainwindow.h
+
+SOURCES += main.cpp\
+        mainwindow.cpp \
+    bib/glwidget.cpp \
+    bib/Camera.cpp \
+    bib/CameraDistante.cpp \
+    bib/CameraJogo.cpp \
+    bib/Desenha.cpp \
+    bib/Vetor3D.cpp
+
+HEADERS  += mainwindow.h \
+    bib/glwidget.h \
+    bib/Camera.h \
+    bib/CameraDistante.h \
+    bib/CameraJogo.h \
+    bib/Desenha.h \
+    bib/Vetor3D.h
 
 FORMS    += mainwindow.ui
+
+

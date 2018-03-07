@@ -1,3 +1,4 @@
+#include <QKeyEvent>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -6,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    connect(ui->actionSair, &QAction::triggered, this, &MainWindow::sair);
 }
 
 MainWindow::~MainWindow()
@@ -14,12 +15,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
-    //ui->pushButton->setEnabled(false);
-    ui->pushButton->setText("Meu botão");
-    ui->label->setText("Teste");
-    //QKeyEvent * eve1 = new QKeyEvent (QEvent::KeyPress,Qt::Key_N,Qt::NoModifier,"N");
-    QKeyEvent * eve1 = new QKeyEvent (QEvent::KeyPress,Qt::Key_N,Qt::NoModifier,"N");
-    ui->widget->keyPressEvent(eve1);
+void MainWindow::on_pushButton_clicked(){
+    //QKeyEvent * eve1 = new QKeyEvent (QEvent::KeyPress,Qt::Key_Q,Qt::NoModifier,"Q");
+    //ui->openGLWidget->keyPressEvent(eve1);
+    ui->openGLWidget->buttonPressEvent();
 }
+
+void MainWindow::sair(){
+    exit(0);
+}
+

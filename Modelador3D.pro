@@ -15,15 +15,17 @@ TEMPLATE = app
 
 LIBS += -lGLU -lglut
 
+SOURCES += main.cpp
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
+SOURCES += mainwindow.cpp \
     bib/glwidget.cpp \
     bib/Camera.cpp \
     bib/CameraDistante.cpp \
     bib/CameraJogo.cpp \
     bib/Desenha.cpp \
-    bib/Vetor3D.cpp
+    bib/Vetor3D.cpp \
+    oglwidget.cpp
+
 
 HEADERS  += mainwindow.h \
     bib/glwidget.h \
@@ -31,7 +33,8 @@ HEADERS  += mainwindow.h \
     bib/CameraDistante.h \
     bib/CameraJogo.h \
     bib/Desenha.h \
-    bib/Vetor3D.h
+    bib/Vetor3D.h \
+    oglwidget.h
 
 FORMS    += mainwindow.ui
 

@@ -31,9 +31,12 @@ void MainWindow::on_slicestackAddButton_clicked(){
 }
 
 void MainWindow::tor(){
+    ui->openGLWidget->addListaModelos();
+    /*
     QMessageBox msgBox;
     msgBox.setText("The document has been modified.");
     msgBox.exec();
+    */
 }
 
 void MainWindow::sair(){

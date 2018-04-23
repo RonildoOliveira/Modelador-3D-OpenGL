@@ -1,12 +1,13 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+#include <entities/torus.h>
 
-class Model
+class Model: public Torus
 {
 public:
     Model();
-    virtual void desenha() = 0;
+
 };
 
 #endif // MODEL_H

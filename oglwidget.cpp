@@ -2,15 +2,12 @@
 #include <QMessageBox>
 
 #include <iostream>
-#include <vector>
 
 #include "oglwidget.h"
 #include "entities/torus.h"
+#include "entities/model.h"
 
-using namespace  std;
-
-vector<Model*> listaModelos;
-Torus * torus;
+Model * torus;
 
 OGLWidget::OGLWidget(QWidget *parent)
     : QGLWidget(parent)
@@ -21,8 +18,8 @@ OGLWidget::OGLWidget(QWidget *parent)
 
 void OGLWidget::initializeGL()
 {
-    torus = new Torus();
-    listaModelos.push_back(torus);
+    torus = new Model();
+    this->listaModelos.push_back(torus);
 
     glClearColor(1,1,1,1);
     //glClearColor(0.3,0.3,0.3,1.0);
@@ -98,8 +95,9 @@ void OGLWidget::paintGL()
         //Desenha::drawBox( -1.0,-1.0,-1.0, 1.0,1.0,1.0 );
     glPopMatrix();
     */
-    torus->desenha();
-    //listaModelos.at(0)->desenha();
+    //torus->desenha();
+    for(int i = 0; i<listaModelos.size(); i++)
+        listaModelos.at(i)->desenha();
 
     displayEnd();
 }
@@ -151,16 +149,16 @@ void OGLWidget::keyPressEvent(QKeyEvent *event)
 
         case Qt::Key_Plus:
         case Qt::Key_M:
-            torus->addSlices(1);
-            torus->addStacks(1);
+            listaModelos.at(0)->addSlices(1);
+            listaModelos.at(0)->addStacks(1);
             break;
 
         case Qt::Key_Minus:
         case Qt::Key_N:
-            if (torus->getSlices() > 3 && torus->getStacks() > 3)
+            if (listaModelos.at(0)->getSlices() > 3 && torus->getStacks() > 3)
             {
-                torus->addSlices(-1);
-                torus->addStacks(-1);
+                listaModelos.at(0)->addSlices(-1);
+                listaModelos.at(0)->addStacks(-1);
             }
             break;
 
@@ -183,13 +181,13 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *event)
 //    int dy = y - ly;
 
     if (event->buttons() & Qt::LeftButton) {
-        torus->addAX(0.1*(y - ly));
-        torus->addAY(0.1*(x - lx));
+        listaModelos.at(0)->addAX(0.1*(y - ly));
+        listaModelos.at(0)->addAY(0.1*(x - lx));
         //ax += 0.1*(y - ly);
         //ay += 0.1*(x - lx);
     } else if (event->buttons() & Qt::RightButton) {
-        torus->addTX(0.01*(x - lx));
-        torus->addTY(-0.01*(y - ly));
+        listaModelos.at(0)->addTX(0.01*(x - lx));
+        listaModelos.at(0)->addTY(-0.01*(y - ly));
         //tx += 0.01*(x - lx);
         //ty += -0.01*(y - ly);
     }
@@ -197,9 +195,11 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *event)
     lastPos = event->pos();
 }
 
-void OGLWidget::buttonPressEvent(){
-    stacks--;
+void OGLWidget::addListaModelos()
+{
+    this->listaModelos.push_back(new Model());
 }
+
 
 OGLWidget::~OGLWidget()
 {

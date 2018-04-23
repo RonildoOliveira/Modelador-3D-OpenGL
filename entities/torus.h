@@ -6,9 +6,7 @@
 #include <bib/CameraDistante.h>
 #include <bib/Desenha.h>
 
-#include <entities/model.h>
-
-class Torus : public Model
+class Torus
 {
 public:
     Torus();

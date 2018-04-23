@@ -7,8 +7,13 @@
 
 #include <GL/glut.h>
 
+#include <vector>
+#include<entities/torus.h>
+
 #include <bib/CameraDistante.h>
 #include <bib/Desenha.h>
+
+using namespace  std;
 
 class OGLWidget : public QGLWidget
 {
@@ -23,12 +28,16 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
+    void addListaModelos();
+
     ~OGLWidget();
 
 public slots:
     void buttonPressEvent();
 
 private:
+    vector<Torus*> listaModelos;
+
     int width = 800;
     int height = 600;
 

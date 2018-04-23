@@ -5,15 +5,13 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
-#include "Vetor3D.h"
-//#include "Quaternion.h"
+#include <bib/Vetor3D.h>
 
 class Desenha
 {
    public:
 
-      Desenha(){};
-      ~Desenha(){};
+      Desenha();
       static void drawBox(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
       static void drawWireBox(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
       static void drawSelectedBox(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
@@ -24,7 +22,7 @@ class Desenha
       static void drawArrow(Vetor3D from, Vetor3D to, GLfloat larg = 0.0);
       static void drawDoubleArrow(Vetor3D from, Vetor3D to, GLfloat larg = 0.0);
       static void drawEixos(GLfloat);
-
+      ~Desenha();
       static void setTransformODE(const dReal* pos, const dReal* R);
 };
 

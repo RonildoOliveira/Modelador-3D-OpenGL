@@ -14,17 +14,17 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="slicestackSubButton">
     <property name="geometry">
      <rect>
-      <x>1110</x>
+      <x>1090</x>
       <y>520</y>
-      <width>81</width>
+      <width>101</width>
       <height>22</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Slice / Stack -</string>
     </property>
    </widget>
    <widget class="OGLWidget" name="openGLWidget">
@@ -32,9 +32,22 @@
      <rect>
       <x>9</x>
       <y>9</y>
-      <width>311</width>
+      <width>800</width>
       <height>531</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="slicestackAddButton">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>490</y>
+      <width>101</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Slice / Stack +</string>
     </property>
    </widget>
   </widget>
@@ -53,7 +66,14 @@
     </property>
     <addaction name="actionSair"/>
    </widget>
+   <widget class="QMenu" name="menuAdicionar">
+    <property name="title">
+     <string>Adicionar</string>
+    </property>
+    <addaction name="actionTorus"/>
+   </widget>
    <addaction name="menuArquivo"/>
+   <addaction name="menuAdicionar"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -67,6 +87,11 @@
   <action name="actionSair">
    <property name="text">
     <string>Sair</string>
+   </property>
+  </action>
+  <action name="actionTorus">
+   <property name="text">
+    <string>Torus</string>
    </property>
   </action>
  </widget>

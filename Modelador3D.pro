@@ -15,10 +15,11 @@ TEMPLATE = app
 
 LIBS += -lGLU -lglut
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    entities/torus.cpp \
+    entities/model.cpp
 
 SOURCES += mainwindow.cpp \
-    bib/glwidget.cpp \
     bib/Camera.cpp \
     bib/CameraDistante.cpp \
     bib/CameraJogo.cpp \
@@ -28,14 +29,18 @@ SOURCES += mainwindow.cpp \
 
 
 HEADERS  += mainwindow.h \
-    bib/glwidget.h \
     bib/Camera.h \
     bib/CameraDistante.h \
     bib/CameraJogo.h \
     bib/Desenha.h \
     bib/Vetor3D.h \
-    oglwidget.h
+    oglwidget.h \
+    entities/torus.h \
+    entities/model.h
 
 FORMS    += mainwindow.ui
+
+DISTFILES += \
+    README.md
 
 

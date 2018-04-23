@@ -16,8 +16,10 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_slicestackSubButton_clicked();
+    void on_slicestackAddButton_clicked();
     void sair();
+    void tor();
 
 private:
     Ui::MainWindow *ui;

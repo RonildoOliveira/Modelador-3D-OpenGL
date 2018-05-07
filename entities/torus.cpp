@@ -48,6 +48,36 @@ void Torus::addTZ(float tz)
     this->tz+=tz;
 }
 
+float Torus::getSX()
+{
+    return this->sx;
+}
+
+float Torus::getSY()
+{
+    return this->sy;
+}
+
+float Torus::getSZ()
+{
+    return this->sz;
+}
+
+float Torus::getTX()
+{
+    return this->tx;
+}
+
+float Torus::getTY()
+{
+    return this->ty;
+}
+
+float Torus::getTZ()
+{
+    return this->tz;
+}
+
 int Torus::addSlices(int slice)
 {
     this->slices+=slice;
@@ -72,22 +102,41 @@ void Torus::desenha(){
     //sistema local
     glPushMatrix();
         //composicao de transformacoes
-        glTranslated(tx,ty,tz);
-        glRotated(az,0,0,1);
-        glRotated(ay,0,1,0);
-        glRotated(ax,1,0,0);
-        glScaled(sx,sy,sz);
+        glTranslated(this->getTX(),this->getTY(),this->getTZ());
+
+        glRotated(this->getAX(),0,0,1);
+        glRotated(this->getAY(),0,1,0);
+        glRotated(this->getAZ(),1,0,0);
+
+        glScaled(this->getSX(),this->getSX(),this->getSZ());
         //desenhando eixos do sistema de coordenadas local 1
           Desenha::drawEixos( 0.5 );
         //desenhando objeto
         glColor3d(1,0,0);
         //glColor3d(0,0,1);
         //glColor3f(1,0.6,0);
-        glutSolidTorus(0.2,0.8,slices,stacks);
-        //glutWireTorus(0.2,0.8,slices,stacks);
-        //glutSolidTeapot(0.6);
-        //glutWireTeapot(0.6);
-        //Desenha::drawBox( 0.0,0.0,0.0, 1.0,1.0,1.0 );
-        //Desenha::drawBox( -1.0,-1.0,-1.0, 1.0,1.0,1.0 );
+
+        glutSolidTorus(this->getInnerRadius(),this->getOutterRadius(),
+                       this->getSlices(),this->getStacks());
     glPopMatrix();
+}
+
+float Torus::getInnerRadius()
+{
+    return this->innerRadius;
+}
+
+float Torus::getOutterRadius()
+{
+    return this->outterRadius;
+}
+
+void Torus::setInnerRadius(float innerRadius)
+{
+    this->innerRadius = innerRadius;
+}
+
+void Torus::setOutterRadius(float outterRadius)
+{
+    this->outterRadius = outterRadius;
 }

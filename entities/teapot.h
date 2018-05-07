@@ -1,5 +1,5 @@
-#ifndef TORUS_H
-#define TORUS_H
+#ifndef TEAPOT_H
+#define TEAPOT_H
 
 #include <GL/glut.h>
 #include <bib/CameraDistante.h>
@@ -7,19 +7,17 @@
 
 #include<entities/model.h>
 
-class Torus: public Model {
+class Teapot : public Model {
 public:
-    Torus();
+    Teapot();
     void desenha();
-
-    float getInnerRadius();
-    float getOutterRadius();
-    void setInnerRadius(float innerRadius);
-    void setOutterRadius(float outterRadius);
 
     float getAX();
     float getAY();
     float getAZ();
+
+    float getSize();
+    void  setSize(float size);
 
     void addAX(float ax);
     void addAY(float ay);
@@ -37,18 +35,8 @@ public:
     float getSY();
     float getSZ();
 
-    int addSlices(int slice);
-    int addStacks(int stack);
-
-    int getSlices();
-    int getStacks();
-
 private:
-    float innerRadius = 0.2;
-    float outterRadius = 0.8;
-
-    int slices = 10;
-    int stacks = 10;
+    float size = 1.0;
 
     float trans_obj = false;
 
@@ -60,11 +48,11 @@ private:
     float ay = 0.0;
     float az = 0.0;
 
-    float delta = 5.0;
+    float delta = 5.0; //remover ou nao
 
     float sx = 1.0;
     float sy = 1.0;
     float sz = 1.0;
 };
 
-#endif // TORUS_H
+#endif // TEAPOT_H

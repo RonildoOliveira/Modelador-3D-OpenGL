@@ -8,7 +8,7 @@
 #include <GL/glut.h>
 
 #include <vector>
-#include<entities/torus.h>
+#include<entities/model.h>
 
 #include <bib/CameraDistante.h>
 #include <bib/Desenha.h>
@@ -36,7 +36,7 @@ public slots:
     void buttonPressEvent();
 
 private:
-    vector<Torus*> listaModelos;
+    vector<Model*> listaModelos;
 
     int width = 800;
     int height = 600;

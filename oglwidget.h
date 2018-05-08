@@ -28,7 +28,12 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
-    void addListaModelos();
+
+    void addTorusListaModelos();
+    void addTeapotListaModelos();
+
+    void increaseCont();
+    void decreaseCont();
 
     ~OGLWidget();
 
@@ -37,6 +42,8 @@ public slots:
 
 private:
     vector<Model*> listaModelos;
+
+    int cont = 1;
 
     int width = 800;
     int height = 600;

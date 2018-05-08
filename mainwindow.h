@@ -18,8 +18,12 @@ public:
 private slots:
     void on_slicestackSubButton_clicked();
     void on_slicestackAddButton_clicked();
+
+    void on_nextObject_clicked();
+
     void sair();
-    void tor();
+    void addTorus();
+    void addTeapot();
 
 private:
     Ui::MainWindow *ui;

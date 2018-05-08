@@ -19,9 +19,9 @@ OGLWidget::OGLWidget(QWidget *parent)
 
 void OGLWidget::initializeGL()
 {
-    Torus * torus = new Torus();
-    Model * t = torus;
-    this->listaModelos.push_back(t);
+    //Torus * torus = new Torus();
+    //Model * t = torus;
+    //this->listaModelos.push_back(teapot);
 
     cout << "[ " << this->listaModelos.size() << " ]";
 
@@ -101,7 +101,12 @@ void OGLWidget::paintGL()
     */
     //torus->desenha();
 
-    listaModelos.at(0)->desenha();
+    if(listaModelos.size() > 0){
+        for (int index = 0; index < listaModelos.size(); ++index) {
+            listaModelos.at(index)->desenha();
+        }
+    }
+
     displayEnd();
 }
 
@@ -140,6 +145,16 @@ void OGLWidget::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key())
     {
+        case Qt::Key_Right:
+            this->cont++;
+            cout << this->cont;
+        break;
+
+        case Qt::Key_Left:
+            this->cont--;
+            cout << this->cont;
+        break;
+
         case Qt::Key_Escape:
         case Qt::Key_Return:
         case Qt::Key_Q:
@@ -152,7 +167,7 @@ void OGLWidget::keyPressEvent(QKeyEvent *event)
 
         case Qt::Key_Plus:
         case Qt::Key_M:
-            //listaModelos.at(0)->addSlices(1);
+            //listaModelos.at(this->cont)->addSlices(1);
             //listaModelos.at(0)->addStacks(1);
             break;
 
@@ -186,14 +201,16 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *event)
 //    int dy = y - ly;
 
     if (event->buttons() & Qt::LeftButton) {
-        //listaModelos.at(0)->addAX(0.1*(y - ly));
-        //listaModelos.at(0)->addAY(0.1*(x - lx));
+
+        listaModelos.at(0)->addAX(0.1*(y - ly));
+        listaModelos.at(0)->addAY(0.1*(x - lx));
 
         //ax += 0.1*(y - ly);
         //ay += 0.1*(x - lx);
     } else if (event->buttons() & Qt::RightButton) {
-        //listaModelos.at(0)->addTX(0.01*(x - lx));
-        //listaModelos.at(0)->addTY(-0.01*(y - ly));
+
+        listaModelos.at(0)->addTX(0.01*(x - lx));
+        listaModelos.at(0)->addTY(-0.01*(y - ly));
 
         //tx += 0.01*(x - lx);
         //ty += -0.01*(y - ly);
@@ -202,9 +219,24 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *event)
     lastPos = event->pos();
 }
 
-void OGLWidget::addListaModelos()
+void OGLWidget::addTorusListaModelos()
 {
-    //this->listaModelos.push_back(new Torus());
+    this->listaModelos.push_back(new Torus());
+}
+
+void OGLWidget::addTeapotListaModelos()
+{
+    this->listaModelos.push_back(new Teapot());
+}
+
+void OGLWidget::increaseCont()
+{
+    this->cont++;
+}
+
+void OGLWidget::decreaseCont()
+{
+    this->cont--;
 }
 
 

@@ -11,6 +11,19 @@ class Model
 public:
     Model();
     virtual void desenha() = 0;
+
+    virtual void addAX(float ax) = 0;
+    virtual void addAY(float ay) = 0;
+    virtual void addAZ(float az) = 0;
+
+    virtual float getAX() = 0;
+    virtual float getAY() = 0;
+    virtual float getAZ() = 0;
+
+    virtual void addTX(float tx) = 0;
+    virtual void addTY(float ty) = 0;
+    virtual void addTZ(float tz) = 0;
+
     /*
     virtual void addStacks() = 0;
     virtual void addSlices() = 0;
@@ -33,6 +46,14 @@ public:
     virtual void addTY(float ty) = 0;
     virtual void addTZ(float tz) = 0;
     */
+private:
+    float ax = 0.0;
+    float ay = 0.0;
+    float az = 0.0;
+
+    float tx = 0.0;
+    float ty = 0.0;
+    float tz = 0.0;
 };
 
 #endif // MODEL_H

@@ -12,7 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->actionSair, &QAction::triggered, this, &MainWindow::sair);
-    connect(ui->actionTorus, &QAction::triggered, this, &MainWindow::tor);
+    connect(ui->actionTorus, &QAction::triggered, this, &MainWindow::addTorus);
+    connect(ui->actionTeapot, &QAction::triggered, this, &MainWindow::addTeapot);
 }
 
 MainWindow::~MainWindow()
@@ -30,13 +31,21 @@ void MainWindow::on_slicestackAddButton_clicked(){
     ui->openGLWidget->keyPressEvent(eve1);
 }
 
-void MainWindow::tor(){
-    ui->openGLWidget->addListaModelos();
+void MainWindow::on_nextObject_clicked(){
+    ui->openGLWidget->increaseCont();
+}
+
+void MainWindow::addTorus(){
+    ui->openGLWidget->addTorusListaModelos();
     /*
     QMessageBox msgBox;
     msgBox.setText("The document has been modified.");
     msgBox.exec();
     */
+}
+
+void MainWindow::addTeapot(){
+    ui->openGLWidget->addTeapotListaModelos();
 }
 
 void MainWindow::sair(){

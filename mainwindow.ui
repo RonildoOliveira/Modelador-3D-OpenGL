@@ -17,9 +17,9 @@
    <widget class="QPushButton" name="slicestackSubButton">
     <property name="geometry">
      <rect>
-      <x>1090</x>
-      <y>520</y>
-      <width>101</width>
+      <x>1080</x>
+      <y>480</y>
+      <width>111</width>
       <height>22</height>
      </rect>
     </property>
@@ -40,14 +40,40 @@
    <widget class="QPushButton" name="slicestackAddButton">
     <property name="geometry">
      <rect>
-      <x>1090</x>
-      <y>490</y>
-      <width>101</width>
+      <x>1080</x>
+      <y>450</y>
+      <width>111</width>
       <height>22</height>
      </rect>
     </property>
     <property name="text">
      <string>Slice / Stack +</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="nextObject">
+    <property name="geometry">
+     <rect>
+      <x>1139</x>
+      <y>510</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&gt;&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="prevObject">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>510</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;&lt;</string>
     </property>
    </widget>
   </widget>
@@ -71,6 +97,7 @@
      <string>Adicionar</string>
     </property>
     <addaction name="actionTorus"/>
+    <addaction name="actionTeapot"/>
    </widget>
    <addaction name="menuArquivo"/>
    <addaction name="menuAdicionar"/>
@@ -92,6 +119,11 @@
   <action name="actionTorus">
    <property name="text">
     <string>Torus</string>
+   </property>
+  </action>
+  <action name="actionTeapot">
+   <property name="text">
+    <string>Teapot</string>
    </property>
   </action>
  </widget>

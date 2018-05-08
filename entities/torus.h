@@ -21,17 +21,17 @@ public:
     float getAY();
     float getAZ();
 
-    void addAX(float ax);
-    void addAY(float ay);
-    void addAZ(float az);
+    void addAX(float ax) override;
+    void addAY(float ay) override;
+    void addAZ(float az) override;
 
     float getTX();
     float getTY();
     float getTZ();
 
-    void addTX(float tx);
-    void addTY(float ty);
-    void addTZ(float tz);
+    void addTX(float tx) override;
+    void addTY(float ty) override;
+    void addTZ(float tz) override;
 
     float getSX();
     float getSY();

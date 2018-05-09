@@ -43,7 +43,7 @@ public slots:
 private:
     vector<Model*> listaModelos;
 
-    int cont = 1;
+    int cont = 0;
 
     int width = 800;
     int height = 600;
@@ -70,12 +70,7 @@ private:
     float sy = 1.0;
     float sz = 1.0;
 
-    bool lbpressed = false;
-    bool mbpressed = false;
-    bool rbpressed = false;
 
-    float last_x = 0.0;
-    float last_y = 0.0;
 
     Camera* cam = new CameraDistante();
     float savedCamera[9];

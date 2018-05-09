@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1200</width>
-    <height>600</height>
+    <height>650</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <widget class="QPushButton" name="slicestackSubButton">
     <property name="geometry">
      <rect>
-      <x>1080</x>
+      <x>1040</x>
       <y>480</y>
       <width>111</width>
       <height>22</height>
@@ -32,15 +32,15 @@
      <rect>
       <x>9</x>
       <y>9</y>
-      <width>800</width>
-      <height>531</height>
+      <width>1000</width>
+      <height>650</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="slicestackAddButton">
     <property name="geometry">
      <rect>
-      <x>1080</x>
+      <x>1040</x>
       <y>450</y>
       <width>111</width>
       <height>22</height>
@@ -53,7 +53,7 @@
    <widget class="QPushButton" name="nextObject">
     <property name="geometry">
      <rect>
-      <x>1139</x>
+      <x>1099</x>
       <y>510</y>
       <width>51</width>
       <height>22</height>
@@ -66,7 +66,7 @@
    <widget class="QPushButton" name="prevObject">
     <property name="geometry">
      <rect>
-      <x>1080</x>
+      <x>1040</x>
       <y>510</y>
       <width>51</width>
       <height>22</height>
@@ -74,6 +74,32 @@
     </property>
     <property name="text">
      <string>&lt;&lt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="removerObjButton">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>540</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Del</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="eixoButton">
+    <property name="geometry">
+     <rect>
+      <x>1100</x>
+      <y>540</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>XYZ</string>
     </property>
    </widget>
   </widget>

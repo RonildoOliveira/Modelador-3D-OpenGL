@@ -19,12 +19,18 @@ void Teapot::desenha()
         glScaled(this->getSX(),this->getSY(),this->getSZ());
 
         //desenhando eixos do sistema de coordenadas local 1
-        Desenha::drawEixos( 0.5 );
+        if(isEixo()){
+            Desenha::drawEixos( 0.5 );
+        }
 
         //desenhando objeto
-        glColor3d(1,0,0);
-        //glColor3d(0,0,1);
-        //glColor3f(1,0.6,0);
+
+        if(isSelecionado()){
+            glColor3f(0.22,1.0,0.07);
+        }
+        else{
+            glColor3f(0.5,0.5,0.5);
+        }
 
         glutSolidTeapot(this->getSize());
     glPopMatrix();
@@ -107,4 +113,53 @@ float Teapot::getSY()
 float Teapot::getSZ()
 {
     return this->sz;
+}
+
+bool Teapot::isSelecionado(){
+    return this->selecionado;
+}
+
+void Teapot::setEixo(bool eixo)
+{
+    this->eixo = eixo;
+}
+
+bool Teapot::isEixo()
+{
+    return this->eixo;
+}
+
+void Teapot::setSelecionado(bool selecionado){
+    this->selecionado = selecionado;
+}
+
+void Teapot::addSlices()
+{
+
+}
+
+void Teapot::addStacks()
+{
+
+}
+
+void Teapot::decSlices()
+{
+
+}
+
+void Teapot::decStacks()
+{
+
+}
+
+
+int Teapot::getSlices()
+{
+    return 0;
+}
+
+int Teapot::getStacks()
+{
+    return 0;
 }

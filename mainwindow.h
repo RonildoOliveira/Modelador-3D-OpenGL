@@ -18,8 +18,12 @@ public:
 private slots:
     void on_slicestackSubButton_clicked();
     void on_slicestackAddButton_clicked();
+    void on_removerObjButton_clicked();
 
     void on_nextObject_clicked();
+    void on_prevObject_clicked();
+
+    void on_eixoButton_clicked();
 
     void sair();
     void addTorus();
@@ -30,3 +34,4 @@ private:
 };
 
 #endif // MAINWINDOW_H
+

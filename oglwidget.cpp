@@ -19,14 +19,7 @@ OGLWidget::OGLWidget(QWidget *parent)
 
 void OGLWidget::initializeGL()
 {
-    //Torus * torus = new Torus();
-    //Model * t = torus;
-    //this->listaModelos.push_back(teapot);
-
-    cout << "[ " << this->listaModelos.size() << " ]";
-
     glClearColor(1,1,1,1);
-    //glClearColor(0.3,0.3,0.3,1.0);
 
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
@@ -70,36 +63,11 @@ void OGLWidget::paintGL()
     //sistema global
     glPushMatrix();
         //desenhando eixos do sistema de coordenadas global
-          Desenha::drawEixos( 0.5 );
+        Desenha::drawEixos( 0.5 );
         //chao
         glColor3d(0.3,0.3,0.3);
         Desenha::drawGrid( 5, 0, 1, 1 );
     glPopMatrix();
-
-    /*
-    //sistema local 1
-    glPushMatrix();
-        //composicao de transformacoes
-        glTranslated(tx,ty,tz);
-        glRotated(az,0,0,1);
-        glRotated(ay,0,1,0);
-        glRotated(ax,1,0,0);
-        glScaled(sx,sy,sz);
-        //desenhando eixos do sistema de coordenadas local 1
-          Desenha::drawEixos( 0.5 );
-        //desenhando objeto
-        glColor3d(1,0,0);
-        //glColor3d(0,0,1);
-        //glColor3f(1,0.6,0);
-        glutSolidTorus(0.2,0.8,slices,stacks);
-        //glutWireTorus(0.2,0.8,slices,stacks);
-        //glutSolidTeapot(0.6);
-        //glutWireTeapot(0.6);
-        //Desenha::drawBox( 0.0,0.0,0.0, 1.0,1.0,1.0 );
-        //Desenha::drawBox( -1.0,-1.0,-1.0, 1.0,1.0,1.0 );
-    glPopMatrix();
-    */
-    //torus->desenha();
 
     if(listaModelos.size() > 0){
         for (int index = 0; index < listaModelos.size(); ++index) {
@@ -125,8 +93,6 @@ void OGLWidget::displayInit()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    //definindo posicao e orientacao da camera
-    //gluLookAt(0.0,1.0,15.0, 0.0,0.0,-1.0, 0.0,1.0,0.0);
     gluLookAt(cam->e.x,cam->e.y,cam->e.z, cam->c.x,cam->c.y,cam->c.z, cam->u.x,cam->u.y,cam->u.z);
 }
 
@@ -145,14 +111,30 @@ void OGLWidget::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key())
     {
-        case Qt::Key_Right:
-            this->cont++;
-            cout << this->cont;
+        case Qt::Key_Right:{
+            if(!listaModelos.empty()){
+                if(cont == -1){
+                    cont++;
+                    (listaModelos[cont])->setSelecionado(true);
+                }else if(cont >= 0 && (cont < (listaModelos.size() - 1))){
+                    (listaModelos[cont])->setSelecionado(false);
+                    cont++;
+                    (listaModelos[cont])->setSelecionado(true);
+                }else{
+                    (listaModelos[cont])->setSelecionado(false);
+                    cont = -1;
+                }
+            }
+        }
         break;
 
-        case Qt::Key_Left:
-            this->cont--;
-            cout << this->cont;
+        case Qt::Key_E:{
+            if(!listaModelos.empty()){
+                if((listaModelos[cont])->isSelecionado()){
+                    (listaModelos[cont])->setEixo(!(listaModelos[cont])->isEixo());
+                }
+            }
+        }
         break;
 
         case Qt::Key_Escape:
@@ -167,21 +149,31 @@ void OGLWidget::keyPressEvent(QKeyEvent *event)
 
         case Qt::Key_Plus:
         case Qt::Key_M:
-            //listaModelos.at(this->cont)->addSlices(1);
-            //listaModelos.at(0)->addStacks(1);
+            if(!listaModelos.empty()){
+                if (listaModelos.at(cont)->getSlices() > 3 && listaModelos.at(cont)->getStacks() > 3)
+                {
+                    listaModelos.at(cont)->addSlices();
+                    listaModelos.at(cont)->addStacks();
+                }
+            }
             break;
 
         case Qt::Key_Minus:
         case Qt::Key_N:
-            /*
-            if (listaModelos.at(0)->getSlices() > 3 && torus->getStacks() > 3)
-            {
-                listaModelos.at(0)->addSlices(-1);
-                listaModelos.at(0)->addStacks(-1);
+            if(!listaModelos.empty()){
+                if (listaModelos.at(cont)->getSlices() > 3 && listaModelos.at(cont)->getStacks() > 3)
+                {
+                    listaModelos.at(cont)->decSlices();
+                    listaModelos.at(cont)->decStacks();
+                }
             }
-            */
             break;
 
+        case Qt::Key_R:
+            if(!listaModelos.empty()){
+                listaModelos.erase (listaModelos.begin()+cont);
+            }
+            break;
     }
 }
 
@@ -192,28 +184,34 @@ void OGLWidget::mousePressEvent(QMouseEvent *event)
 
 void OGLWidget::mouseMoveEvent(QMouseEvent *event)
 {
+    float fator = 10.0;
+
     int x = event->x();
     int y = event->y();
+
     int lx = lastPos.x();
     int ly = lastPos.y();
 
-//    int dx = x - lx;
-//    int dy = y - ly;
+    if(!listaModelos.empty()){
+        if (event->buttons() & Qt::LeftButton) {
+            listaModelos.at(cont)->addAX(0.1*(y - ly));
+            listaModelos.at(cont)->addAY(0.1*(x - lx));
 
-    if (event->buttons() & Qt::LeftButton) {
+        } else if (event->buttons() & Qt::RightButton) {
+            listaModelos.at(cont)->addTX(0.01*(x - lx));
+            listaModelos.at(cont)->addTY(-0.01*(y - ly));
+        }
+    }
 
-        listaModelos.at(0)->addAX(0.1*(y - ly));
-        listaModelos.at(0)->addAY(0.1*(x - lx));
-
-        //ax += 0.1*(y - ly);
-        //ay += 0.1*(x - lx);
-    } else if (event->buttons() & Qt::RightButton) {
-
-        listaModelos.at(0)->addTX(0.01*(x - lx));
-        listaModelos.at(0)->addTY(-0.01*(y - ly));
-
-        //tx += 0.01*(x - lx);
-        //ty += -0.01*(y - ly);
+     fator = 1000.0;
+    if (event->buttons() & Qt::LeftButton && event->buttons() & Qt::RightButton) {
+        if (!trans_obj) {
+            cam->zoom(y,ly);
+        } else {
+            listaModelos.at(cont)->addTZ((y - ly)/fator);
+            fator = 100.0;
+            listaModelos.at(cont)->addAZ((x - lx)/fator);
+        }
     }
 
     lastPos = event->pos();
@@ -238,7 +236,6 @@ void OGLWidget::decreaseCont()
 {
     this->cont--;
 }
-
 
 OGLWidget::~OGLWidget()
 {

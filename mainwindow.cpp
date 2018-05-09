@@ -10,7 +10,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    this->setGeometry(QStyle::alignedRect(Qt::LeftToRight,
+                                          Qt::AlignCenter, this->size(),
+                                          qApp->desktop()->availableGeometry()));
     ui->setupUi(this);
+
     connect(ui->actionSair, &QAction::triggered, this, &MainWindow::sair);
     connect(ui->actionTorus, &QAction::triggered, this, &MainWindow::addTorus);
     connect(ui->actionTeapot, &QAction::triggered, this, &MainWindow::addTeapot);
@@ -32,7 +36,25 @@ void MainWindow::on_slicestackAddButton_clicked(){
 }
 
 void MainWindow::on_nextObject_clicked(){
-    ui->openGLWidget->increaseCont();
+    QKeyEvent * eve1 = new QKeyEvent (QEvent::KeyPress,Qt::Key_Right,Qt::NoModifier,"Key_Right");
+    ui->openGLWidget->keyPressEvent(eve1);
+}
+
+void MainWindow::on_prevObject_clicked(){
+    QKeyEvent * eve1 = new QKeyEvent (QEvent::KeyPress,Qt::Key_Left,Qt::NoModifier,"Key_Left");
+    ui->openGLWidget->keyPressEvent(eve1);
+}
+
+void MainWindow::on_eixoButton_clicked()
+{
+    QKeyEvent * eve1 = new QKeyEvent (QEvent::KeyPress,Qt::Key_E,Qt::NoModifier,"Key_E");
+    ui->openGLWidget->keyPressEvent(eve1);
+}
+
+
+void MainWindow::on_removerObjButton_clicked(){
+    QKeyEvent * eve1 = new QKeyEvent (QEvent::KeyPress,Qt::Key_R,Qt::NoModifier,"R");
+    ui->openGLWidget->keyPressEvent(eve1);
 }
 
 void MainWindow::addTorus(){

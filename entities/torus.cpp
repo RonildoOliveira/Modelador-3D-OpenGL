@@ -78,14 +78,24 @@ float Torus::getTZ()
     return this->tz;
 }
 
-int Torus::addSlices(int slice)
+void Torus::addSlices()
 {
-    this->slices+=slice;
+    this->slices++;
 }
 
-int Torus::addStacks(int stack)
+void Torus::addStacks()
 {
-    this->stacks+=stack;
+    this->stacks++;
+}
+
+void Torus::decSlices()
+{
+    this->slices--;
+}
+
+void Torus::decStacks()
+{
+    this->stacks--;
 }
 
 int Torus::getSlices()
@@ -109,12 +119,19 @@ void Torus::desenha(){
         glRotated(this->getAZ(),1,0,0);
 
         glScaled(this->getSX(),this->getSX(),this->getSZ());
+
         //desenhando eixos do sistema de coordenadas local 1
-          Desenha::drawEixos( 0.5 );
+        if(isEixo()){
+            Desenha::drawEixos( 0.5 );
+        }
+         //glColor3d(0,1,0);
         //desenhando objeto
-        glColor3d(1,0,0);
-        //glColor3d(0,0,1);
-        //glColor3f(1,0.6,0);
+          if(isSelecionado()){
+              glColor3f(0.22,1.0,0.07);
+          }
+          else{
+              glColor3f(0.5,0.5,0.5);
+          }
 
         glutSolidTorus(this->getInnerRadius(),this->getOutterRadius(),
                        this->getSlices(),this->getStacks());
@@ -139,4 +156,23 @@ void Torus::setInnerRadius(float innerRadius)
 void Torus::setOutterRadius(float outterRadius)
 {
     this->outterRadius = outterRadius;
+}
+
+bool Torus::isSelecionado(){
+    return this->selecionado;
+}
+
+void Torus::setEixo(bool eixo)
+{
+    this->eixo = eixo;
+}
+
+bool Torus::isEixo()
+{
+    return this->eixo;
+}
+
+
+void Torus::setSelecionado(bool selecionado){
+    this->selecionado = selecionado;
 }

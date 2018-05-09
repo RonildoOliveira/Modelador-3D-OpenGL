@@ -24,6 +24,21 @@ public:
     virtual void addTY(float ty) = 0;
     virtual void addTZ(float tz) = 0;
 
+    virtual void setSelecionado(bool selecionado) = 0;
+    virtual bool isSelecionado() = 0;
+
+    virtual void setEixo(bool eixo) = 0;
+    virtual bool isEixo() = 0;
+
+    virtual void addStacks() = 0;
+    virtual void addSlices() = 0;
+
+    virtual void decStacks() = 0;
+    virtual void decSlices() = 0;
+
+    virtual int getSlices() = 0;
+    virtual int getStacks() = 0;
+
     /*
     virtual void addStacks() = 0;
     virtual void addSlices() = 0;
@@ -54,6 +69,7 @@ private:
     float tx = 0.0;
     float ty = 0.0;
     float tz = 0.0;
+
 };
 
 #endif // MODEL_H

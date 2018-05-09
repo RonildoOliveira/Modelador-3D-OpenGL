@@ -14,6 +14,7 @@ public:
 
     float getInnerRadius();
     float getOutterRadius();
+
     void setInnerRadius(float innerRadius);
     void setOutterRadius(float outterRadius);
 
@@ -37,11 +38,19 @@ public:
     float getSY();
     float getSZ();
 
-    int addSlices(int slice);
-    int addStacks(int stack);
+    void addSlices() override;
+    void addStacks() override;
+    void decSlices() override;
+    void decStacks() override;
 
-    int getSlices();
-    int getStacks();
+    int getSlices() override;
+    int getStacks() override;
+
+    void setSelecionado(bool selecionado) override;
+    bool isSelecionado() override;
+
+    void setEixo(bool eixo) override;
+    bool isEixo() override;
 
 private:
     float innerRadius = 0.2;
@@ -65,6 +74,9 @@ private:
     float sx = 1.0;
     float sy = 1.0;
     float sz = 1.0;
+
+    bool selecionado = false;
+    bool eixo = true;
 };
 
 #endif // TORUS_H

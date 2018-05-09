@@ -35,6 +35,20 @@ public:
     float getSY();
     float getSZ();
 
+    void addSlices() override;
+    void addStacks() override;
+    void decSlices() override;
+    void decStacks() override;
+
+    int getSlices() override;
+    int getStacks() override;
+
+    void setSelecionado(bool selecionado) override;
+    bool isSelecionado() override;
+
+    void setEixo(bool eixo) override;
+    bool isEixo() override;
+
 private:
     float size = 1.0;
 
@@ -53,6 +67,9 @@ private:
     float sx = 1.0;
     float sy = 1.0;
     float sz = 1.0;
+
+    bool selecionado = false;
+    bool eixo = true;
 };
 
 #endif // TEAPOT_H

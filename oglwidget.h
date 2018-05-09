@@ -45,6 +45,7 @@ public:
     void mudancasEixoZ(char tipo, float valor);
 
     void carregarEstado();
+    void carregarModelo3DOBJ(string caminho, string nome);
     void salvarEstado();
 
 

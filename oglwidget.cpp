@@ -333,6 +333,11 @@ void OGLWidget::carregarEstado(){
 
 }
 
+void OGLWidget::carregarModelo3DOBJ(string caminho, string nome)
+{
+    listaModelos.push_back(new ObjModelLoader(caminho, nome));
+}
+
 void OGLWidget::salvarEstado()
 {
     ofstream myfile ("../Modelador3D/state.txt");

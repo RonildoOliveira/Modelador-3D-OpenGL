@@ -3,7 +3,7 @@
 #include "ui_mainwindow.h"
 
 #include <iostream>
-
+#include "entities/models/objmodelloader.h"
 using namespace  std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionCarregar_Estado,&QAction::triggered, this, &MainWindow::carregarEstado);
     connect(ui->actionSalvar_Estado,&QAction::triggered, this, &MainWindow::salvarEstado);
     connect(ui->actionSair, &QAction::triggered, this, &MainWindow::sair);
+    connect(ui->actionCarregarOBJ, &QAction::triggered, this, &MainWindow::carregarOBJ);
 
     connect(ui->actionTorus, &QAction::triggered, this, &MainWindow::addTorus);
     connect(ui->actionTeapot, &QAction::triggered, this, &MainWindow::addTeapot);
@@ -73,6 +74,15 @@ void MainWindow::salvarEstado()
     ui->openGLWidget->salvarEstado();
 }
 
+void MainWindow::carregarOBJ()
+{
+    QString filename = QFileDialog::getOpenFileName(this, tr("Carregar Modelo 3D"), "/home/", tr("Modelos OBJ (*.obj)"));
+    std::string utf8_text = filename.toUtf8().constData();
+
+    ui->openGLWidget->carregarModelo3DOBJ(utf8_text,"Novo");
+    std::cout << utf8_text << "-->";
+}
+
 
 void MainWindow::on_removerObjButton_clicked(){
     QKeyEvent * eve1 = new QKeyEvent (QEvent::KeyPress,Qt::Key_R,Qt::NoModifier,"R");
@@ -117,7 +127,7 @@ void MainWindow::xValueReceived(int x)
     float fator = 10.0;
 
     if(ui->tRadioButton->isChecked())
-        ui->openGLWidget->mudancasEixoX('T', (x / fator));
+        ui->openGLWidget->mudancasEixoX('T', (x / (fator*10)));
 
     if(ui->aRadioButton->isChecked())
         ui->openGLWidget->mudancasEixoX('A', (x));
@@ -131,7 +141,7 @@ void MainWindow::yValueReceived(int y)
     float fator = 10.0;
 
     if(ui->tRadioButton->isChecked())
-        ui->openGLWidget->mudancasEixoY('T', (y / fator));
+        ui->openGLWidget->mudancasEixoY('T', (y / (fator*10)));
 
     if(ui->aRadioButton->isChecked())
         ui->openGLWidget->mudancasEixoY('A', (y));
@@ -145,7 +155,7 @@ void MainWindow::zValueReceived(int z)
     float fator = 10.0;
 
     if(ui->tRadioButton->isChecked())
-        ui->openGLWidget->mudancasEixoZ('T', (z / fator));
+        ui->openGLWidget->mudancasEixoZ('T', (z / (fator*10)));
 
     if(ui->aRadioButton->isChecked())
         ui->openGLWidget->mudancasEixoZ('A', (z));

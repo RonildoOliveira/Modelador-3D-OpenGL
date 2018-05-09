@@ -40,6 +40,10 @@ public:
     void increaseCont();
     void decreaseCont();
 
+    void mudancasEixoX(char tipo, float valor);
+    void mudancasEixoY(char tipo, float valor);
+    void mudancasEixoZ(char tipo, float valor);
+
     void carregarEstado();
     void salvarEstado();
 

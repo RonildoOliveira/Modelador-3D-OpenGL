@@ -18,13 +18,25 @@ public:
     virtual void addAY(float ay) = 0;
     virtual void addAZ(float az) = 0;
 
+    virtual void setAX(float ax) = 0;
+    virtual void setAY(float ay) = 0;
+    virtual void setAZ(float az) = 0;
+
     virtual float getAX() = 0;
     virtual float getAY() = 0;
     virtual float getAZ() = 0;
 
+    virtual void setTX(float tx) = 0;
+    virtual void setTY(float ty) = 0;
+    virtual void setTZ(float tz) = 0;
+
     virtual void addTX(float tx) = 0;
     virtual void addTY(float ty) = 0;
     virtual void addTZ(float tz) = 0;
+
+    virtual void setSX(float sx) = 0;
+    virtual void setSY(float sy) = 0;
+    virtual void setSZ(float sz) = 0;
 
     virtual void addSX(float sx) = 0;
     virtual void addSY(float sy) = 0;

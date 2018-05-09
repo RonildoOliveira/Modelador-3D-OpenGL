@@ -37,6 +37,10 @@ private slots:
     void addBoy();
     void addShelf();
 
+    void xValueReceived(int x);
+    void yValueReceived(int y);
+    void zValueReceived(int z);
+
 private:
     Ui::MainWindow *ui;
 };

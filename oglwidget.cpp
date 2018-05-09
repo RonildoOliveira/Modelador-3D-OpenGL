@@ -241,6 +241,45 @@ void OGLWidget::addShelfListaModelos() { this->listaModelos.push_back(new ObjMod
 void OGLWidget::increaseCont() { this->cont++; }
 void OGLWidget::decreaseCont() { this->cont--; }
 
+void OGLWidget::mudancasEixoX(char tipo, float valor)
+{
+    if(tipo == 'T'){
+        listaModelos.at(cont)->setTX(valor);
+    }
+    if(tipo == 'A'){
+        listaModelos.at(cont)->setAX(valor);
+    }
+    if(tipo == 'S'){
+        listaModelos.at(cont)->setSX(valor);
+    }
+}
+
+void OGLWidget::mudancasEixoY(char tipo, float valor)
+{
+    if(tipo == 'T'){
+        listaModelos.at(cont)->setTY(valor);
+    }
+    if(tipo == 'A'){
+        listaModelos.at(cont)->setAY(valor);
+    }
+    if(tipo == 'S'){
+        listaModelos.at(cont)->setSY(valor);
+    }
+}
+
+void OGLWidget::mudancasEixoZ(char tipo, float valor)
+{
+    if(tipo == 'T'){
+        listaModelos.at(cont)->setTZ(valor);
+    }
+    if(tipo == 'A'){
+        listaModelos.at(cont)->setAZ(valor);
+    }
+    if(tipo == 'S'){
+        listaModelos.at(cont)->setSZ(valor);
+    }
+}
+
 void OGLWidget::carregarEstado(){
     std::ifstream file("../Modelador3D/state.txt");
     if (!file) {

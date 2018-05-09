@@ -26,6 +26,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionMario, &QAction::triggered, this, &MainWindow::addMario);
     connect(ui->actionBoy, &QAction::triggered, this, &MainWindow::addBoy);
     connect(ui->actionShelf, &QAction::triggered, this, &MainWindow::addShelf);
+
+    connect(ui->eixoXSlider, SIGNAL(valueChanged(int)), this, SLOT(xValueReceived(int)));
+    connect(ui->eixoYSlider, SIGNAL(valueChanged(int)), this, SLOT(yValueReceived(int)));
+    connect(ui->eixoZSlider, SIGNAL(valueChanged(int)), this, SLOT(zValueReceived(int)));
 }
 
 MainWindow::~MainWindow()
@@ -106,6 +110,24 @@ void MainWindow::addBoy()
 void MainWindow::addShelf()
 {
     ui->openGLWidget->addShelfListaModelos();
+}
+
+void MainWindow::xValueReceived(int x)
+{
+
+    ui->openGLWidget->mudancasEixoX('T', (x / 10.0));
+    //ui->openGLWidget->mudancasEixoX('A', (x));
+    //ui->openGLWidget->mudancasEixoX('S', (x / 10.0));
+}
+
+void MainWindow::yValueReceived(int y)
+{
+    ui->openGLWidget->mudancasEixoY('T', (y / 10.0));
+}
+
+void MainWindow::zValueReceived(int z)
+{
+    ui->openGLWidget->mudancasEixoZ('T', (z / 10.0));
 }
 
 void MainWindow::sair(){

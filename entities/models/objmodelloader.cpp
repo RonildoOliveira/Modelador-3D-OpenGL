@@ -252,13 +252,25 @@ void ObjModelLoader::addAX(float ax) { this->ax+=ax; }
 void ObjModelLoader::addAY(float ay) { this->ay+=ay; }
 void ObjModelLoader::addAZ(float az) { this->az+=az; }
 
+void ObjModelLoader::setAX(float ax) { this->ax = ax; }
+void ObjModelLoader::setAY(float ay) { this->ay = ay; }
+void ObjModelLoader::setAZ(float az) { this->az = az; }
+
 void ObjModelLoader::addSX(float sx) { this->sx+=sx; }
 void ObjModelLoader::addSY(float sy) { this->sy+=sy; }
 void ObjModelLoader::addSZ(float sz) { this->sz+=sz; }
 
+void ObjModelLoader::setSX(float sx) { this->sx = sx; }
+void ObjModelLoader::setSY(float sy) { this->sy = sy; }
+void ObjModelLoader::setSZ(float sz) { this->sz = sz; }
+
 float ObjModelLoader::getSX() { return this->sx; }
 float ObjModelLoader::getSY() { return this->sy; }
 float ObjModelLoader::getSZ() { return this->sz; }
+
+void ObjModelLoader::setTX(float tx) { this->tx = tx; }
+void ObjModelLoader::setTY(float ty) { this->ty = ty; }
+void ObjModelLoader::setTZ(float tz) { this->tz = tz; }
 
 float ObjModelLoader::getTX() { return this->tx; }
 float ObjModelLoader::getTY() { return this->ty; }

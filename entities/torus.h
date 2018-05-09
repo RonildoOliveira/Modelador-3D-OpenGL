@@ -36,13 +36,25 @@ public:
     void addAY(float ay) override;
     void addAZ(float az) override;
 
+    void setAX(float ax) override;
+    void setAY(float ay) override;
+    void setAZ(float az) override;
+
     void addSX(float sx) override;
     void addSY(float sy) override;
     void addSZ(float sz) override;
 
+    void setSX(float sx) override;
+    void setSY(float sy) override;
+    void setSZ(float sz) override;
+
     float getSX() override;
     float getSY() override;
     float getSZ() override;
+
+    void setTX(float tx) override;
+    void setTY(float ty) override;
+    void setTZ(float tz) override;
 
     float getTX() override;
     float getTY() override;

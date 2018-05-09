@@ -60,9 +60,17 @@ void Torus::addAX(float ax){ this->ax += ax; }
 void Torus::addAY(float ay){ this->ay += ay; }
 void Torus::addAZ(float az){ this->az += az; }
 
+void Torus::setAX(float ax) { this->ax = ax; }
+void Torus::setAY(float ay) { this->ay = ay; }
+void Torus::setAZ(float az) { this->az = az; }
+
 void Torus::addSY(float sy) { this->sy+=sy; }
 void Torus::addSX(float sx) { this->sx+=sx; }
 void Torus::addSZ(float sz) { this->sz+=sz; }
+
+void Torus::setSX(float sx) { this->sx = sx; }
+void Torus::setSY(float sy) { this->sy = sy; }
+void Torus::setSZ(float sz) { this->sz = sz; }
 
 void Torus::addTX(float tx) { this->tx+=tx; }
 void Torus::addTY(float ty) { this->ty+=ty; }
@@ -71,6 +79,10 @@ void Torus::addTZ(float tz) { this->tz+=tz; }
 float Torus::getSX() { return this->sx; }
 float Torus::getSY() { return this->sy; }
 float Torus::getSZ() { return this->sz; }
+
+void Torus::setTX(float tx) { this->tx = tx; }
+void Torus::setTY(float ty) { this->ty = ty; }
+void Torus::setTZ(float tz) { this->tz = tz; }
 
 float Torus::getTX() { return this->tx; }
 float Torus::getTY() { return this->ty; }

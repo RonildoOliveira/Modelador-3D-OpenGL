@@ -28,6 +28,10 @@ void Teapot::addAX(float ax) { this->ax += ax; }
 void Teapot::addAY(float ay) { this->ay += ay; }
 void Teapot::addAZ(float az) { this->az += az; }
 
+void Teapot::setAX(float ax) { this->ax = ax; }
+void Teapot::setAY(float ay) { this->ay = ay; }
+void Teapot::setAZ(float az) { this->az = az; }
+
 float Teapot::getSize() { return this->size; }
 void Teapot::setSize(float size) { this->size = size; }
 
@@ -35,9 +39,17 @@ void Teapot::addSX(float sx) { this->sx+=sx; }
 void Teapot::addSY(float sy) { this->sy+=sy; }
 void Teapot::addSZ(float sz) { this->sz+=sz; }
 
+void Teapot::setSX(float sx) { this->sx = sx; }
+void Teapot::setSY(float sy) { this->sy = sy; }
+void Teapot::setSZ(float sz) { this->sz = sz; }
+
 float Teapot::getTX() { return this->tx; }
 float Teapot::getTY() { return this->ty; }
 float Teapot::getTZ() { return this->tz; }
+
+void Teapot::setTX(float tx) { this->tx = tx; }
+void Teapot::setTY(float ty) { this->ty = ty; }
+void Teapot::setTZ(float tz) { this->tz = tz; }
 
 void Teapot::addTX(float tx) { this->tx+=tx; }
 void Teapot::addTY(float ty) { this->ty+=ty; }

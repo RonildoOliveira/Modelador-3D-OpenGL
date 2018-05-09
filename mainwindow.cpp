@@ -114,20 +114,44 @@ void MainWindow::addShelf()
 
 void MainWindow::xValueReceived(int x)
 {
+    float fator = 10.0;
 
-    ui->openGLWidget->mudancasEixoX('T', (x / 10.0));
-    //ui->openGLWidget->mudancasEixoX('A', (x));
-    //ui->openGLWidget->mudancasEixoX('S', (x / 10.0));
+    if(ui->tRadioButton->isChecked())
+        ui->openGLWidget->mudancasEixoX('T', (x / fator));
+
+    if(ui->aRadioButton->isChecked())
+        ui->openGLWidget->mudancasEixoX('A', (x));
+
+    if(ui->sRadioButton->isChecked())
+        ui->openGLWidget->mudancasEixoX('S', (x / (fator*10)));
 }
 
 void MainWindow::yValueReceived(int y)
 {
-    ui->openGLWidget->mudancasEixoY('T', (y / 10.0));
+    float fator = 10.0;
+
+    if(ui->tRadioButton->isChecked())
+        ui->openGLWidget->mudancasEixoY('T', (y / fator));
+
+    if(ui->aRadioButton->isChecked())
+        ui->openGLWidget->mudancasEixoY('A', (y));
+
+    if(ui->sRadioButton->isChecked())
+        ui->openGLWidget->mudancasEixoY('S', (y / (fator*10)));
 }
 
 void MainWindow::zValueReceived(int z)
 {
-    ui->openGLWidget->mudancasEixoZ('T', (z / 10.0));
+    float fator = 10.0;
+
+    if(ui->tRadioButton->isChecked())
+        ui->openGLWidget->mudancasEixoZ('T', (z / fator));
+
+    if(ui->aRadioButton->isChecked())
+        ui->openGLWidget->mudancasEixoZ('A', (z));
+
+    if(ui->sRadioButton->isChecked())
+        ui->openGLWidget->mudancasEixoZ('S', (z / (fator*10)));
 }
 
 void MainWindow::sair(){

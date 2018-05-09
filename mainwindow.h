@@ -24,6 +24,7 @@ private slots:
     void on_prevObject_clicked();
 
     void on_eixoButton_clicked();
+    void on_aplicarTransformacao_clicked();
 
     void carregarEstado();
     void salvarEstado();
@@ -41,6 +42,8 @@ private slots:
     void xValueReceived(int x);
     void yValueReceived(int y);
     void zValueReceived(int z);
+
+    void spliter(std::string linha, std::string delimitador);
 
 private:
     Ui::MainWindow *ui;

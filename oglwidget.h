@@ -44,6 +44,10 @@ public:
     void mudancasEixoY(char tipo, float valor);
     void mudancasEixoZ(char tipo, float valor);
 
+    void mudancasAngulo(float x, float y, float z);
+    void mudancasTranslacao(float x, float y, float z);
+    void mudancasEscala(float x, float y, float z);
+
     void carregarEstado();
     void carregarModelo3DOBJ(string caminho, string nome);
     void salvarEstado();

@@ -69,7 +69,7 @@ void OGLWidget::paintGL()
         Desenha::drawEixos( 0.5 );
         //chao
         glColor3d(0.3,0.3,0.3);
-        Desenha::drawGrid( 5, 0, 1, 1 );
+        Desenha::drawGrid( 15, 0, 15, 1 );
     glPopMatrix();
 
     if(listaModelos.size() > 0){
@@ -278,6 +278,27 @@ void OGLWidget::mudancasEixoZ(char tipo, float valor)
     if(tipo == 'S'){
         listaModelos.at(cont)->setSZ(valor);
     }
+}
+
+void OGLWidget::mudancasAngulo(float x, float y, float z)
+{
+    listaModelos.at(cont)->setAX(x);
+    listaModelos.at(cont)->setAY(y);
+    listaModelos.at(cont)->setAZ(z);
+}
+
+void OGLWidget::mudancasTranslacao(float x, float y, float z)
+{
+    listaModelos.at(cont)->setTX(x);
+    listaModelos.at(cont)->setTY(y);
+    listaModelos.at(cont)->setTZ(z);
+}
+
+void OGLWidget::mudancasEscala(float x, float y, float z)
+{
+    listaModelos.at(cont)->setSX(x);
+    listaModelos.at(cont)->setSY(y);
+    listaModelos.at(cont)->setSZ(z);
 }
 
 void OGLWidget::carregarEstado(){

@@ -64,6 +64,14 @@ void MainWindow::on_eixoButton_clicked()
     ui->openGLWidget->keyPressEvent(eve1);
 }
 
+void MainWindow::on_aplicarTransformacao_clicked()
+{
+    ui->campoTransformacao->setInputMask( "0.0000,0.0000,0.0000" );
+    QString qTexto = ui->campoTransformacao->text();
+    std::string texto = qTexto.toUtf8().constData();
+    spliter(texto, ",");
+}
+
 void MainWindow::carregarEstado()
 {
     ui->openGLWidget->carregarEstado();
@@ -162,6 +170,36 @@ void MainWindow::zValueReceived(int z)
 
     if(ui->sRadioButton->isChecked())
         ui->openGLWidget->mudancasEixoZ('S', (z / (fator*10)));
+}
+
+void MainWindow::spliter(string linha, string delimitador)
+{
+    std::vector<float> vetores;
+
+    size_t pos = 0;
+    std::string token;
+    while ((pos = linha.find(delimitador)) != std::string::npos) {
+        token = linha.substr(0, pos);
+        std::cout << token << std::endl;
+        linha.erase(0, pos + delimitador.length());
+
+        vetores.push_back(::atof(token.c_str()));
+    }
+    vetores.push_back(::atof(linha.c_str()));
+    std::cout << linha << std::endl;
+
+    for (int var = 0; var < vetores.size(); ++var) {
+        cout << vetores.at(var) << endl;
+    }
+
+    if(ui->aRadioButton->isChecked())
+        ui->openGLWidget->mudancasAngulo(vetores.at(0),vetores.at(1),vetores.at(2));
+
+    if(ui->sRadioButton->isChecked())
+        ui->openGLWidget->mudancasEscala(vetores.at(0),vetores.at(1),vetores.at(2));
+
+    if(ui->tRadioButton->isChecked())
+        ui->openGLWidget->mudancasTranslacao(vetores.at(0),vetores.at(1),vetores.at(2));
 }
 
 void MainWindow::sair(){

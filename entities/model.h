@@ -5,6 +5,8 @@
 #include <bib/CameraDistante.h>
 #include <bib/Desenha.h>
 
+#include <string>
+
 /** Classe Abstrata **/
 class Model
 {
@@ -32,6 +34,10 @@ public:
     virtual float getSY() = 0;
     virtual float getSZ() = 0;
 
+    virtual float getTX() = 0;
+    virtual float getTY() = 0;
+    virtual float getTZ() = 0;
+
     virtual void setSelecionado(bool selecionado) = 0;
     virtual bool isSelecionado() = 0;
 
@@ -47,6 +53,7 @@ public:
     virtual int getSlices() = 0;
     virtual int getStacks() = 0;
 
+    virtual std::string getNome() = 0;
     /*
     virtual void addAX(float ax) = 0;
     virtual void addAY(float ay) = 0;
@@ -63,7 +70,10 @@ public:
     virtual void addTY(float ty) = 0;
     virtual void addTZ(float tz) = 0;
     */
+    std::string nome = "Model";
 private:
+
+
     float ax = 0.0;
     float ay = 0.0;
     float az = 0.0;

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Teapot::Teapot(){ cout<<"Solid Teapot"; }
+Teapot::Teapot(){ this->nome = "Teapot"; }
 Teapot::Teapot(float tx, float ty, float tz, float ax, float ay, float az, float sx, float sy, float sz){
     this->tx = tx;
     this->ty = ty;
@@ -16,6 +16,8 @@ Teapot::Teapot(float tx, float ty, float tz, float ax, float ay, float az, float
     this->sx = sx;
     this->sy = sy;
     this->sz = sz;
+
+    this->nome = "Teapot";
 }
 
 float Teapot::getAX() { return this->ax; }
@@ -51,6 +53,11 @@ bool Teapot::isSelecionado(){
 
 void Teapot::setEixo(bool eixo) { this->eixo = eixo; }
 bool Teapot::isEixo() { return this->eixo; }
+
+string Teapot::getNome()
+{
+    return this->nome;
+}
 
 void Teapot::setSelecionado(bool selecionado){ this->selecionado = selecionado; }
 

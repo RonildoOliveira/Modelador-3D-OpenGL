@@ -15,9 +15,13 @@ MainWindow::MainWindow(QWidget *parent) :
                                           qApp->desktop()->availableGeometry()));
     ui->setupUi(this);
 
+    connect(ui->actionCarregar_Estado,&QAction::triggered, this, &MainWindow::carregarEstado);
+    connect(ui->actionSalvar_Estado,&QAction::triggered, this, &MainWindow::salvarEstado);
     connect(ui->actionSair, &QAction::triggered, this, &MainWindow::sair);
+
     connect(ui->actionTorus, &QAction::triggered, this, &MainWindow::addTorus);
     connect(ui->actionTeapot, &QAction::triggered, this, &MainWindow::addTeapot);
+    connect(ui->actionKratos, &QAction::triggered, this, &MainWindow::addKratos);
 }
 
 MainWindow::~MainWindow()
@@ -51,6 +55,16 @@ void MainWindow::on_eixoButton_clicked()
     ui->openGLWidget->keyPressEvent(eve1);
 }
 
+void MainWindow::carregarEstado()
+{
+    ui->openGLWidget->carregarEstado();
+}
+
+void MainWindow::salvarEstado()
+{
+    ui->openGLWidget->salvarEstado();
+}
+
 
 void MainWindow::on_removerObjButton_clicked(){
     QKeyEvent * eve1 = new QKeyEvent (QEvent::KeyPress,Qt::Key_R,Qt::NoModifier,"R");
@@ -68,6 +82,11 @@ void MainWindow::addTorus(){
 
 void MainWindow::addTeapot(){
     ui->openGLWidget->addTeapotListaModelos();
+}
+
+void MainWindow::addKratos()
+{
+    ui->openGLWidget->addKratosListaModelos();
 }
 
 void MainWindow::sair(){

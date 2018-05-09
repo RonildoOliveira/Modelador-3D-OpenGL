@@ -4,10 +4,10 @@
 #include <GL/glut.h>
 #include <bib/CameraDistante.h>
 #include <bib/Desenha.h>
-
 #include<entities/model.h>
 
-class Torus: public Model {
+class Torus: public Model
+{
 public:
     Torus();
     Torus(float innerRadius, float outterRadius,
@@ -15,7 +15,12 @@ public:
           float tx, float ty, float tz,
           float ax, float ay, float az,
           float sx, float sy, float sz);
-    void desenha();
+
+    Torus(float tx, float ty, float tz,
+          float ax, float ay, float az,
+          float sx, float sy, float sz);
+
+    void desenha() override;
 
     float getInnerRadius();
     float getOutterRadius();
@@ -39,9 +44,9 @@ public:
     float getSY() override;
     float getSZ() override;
 
-    float getTX();
-    float getTY();
-    float getTZ();
+    float getTX() override;
+    float getTY() override;
+    float getTZ() override;
 
     void addTX(float tx) override;
     void addTY(float ty) override;
@@ -61,7 +66,11 @@ public:
     void setEixo(bool eixo) override;
     bool isEixo() override;
 
+    std::string getNome() override;
+
 private:
+    std::string nome = "Torus";
+
     float innerRadius = 0.2;
     float outterRadius = 0.8;
 

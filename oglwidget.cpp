@@ -11,6 +11,8 @@
 #include "entities/torus.h"
 #include "entities/teapot.h"
 
+#include "entities/models/objmodelloader.h"
+
 OGLWidget::OGLWidget(QWidget *parent)
     : QGLWidget(parent)
 {
@@ -20,8 +22,6 @@ OGLWidget::OGLWidget(QWidget *parent)
 
 void OGLWidget::initializeGL()
 {
-    carregarEstado();
-
     glClearColor(1,1,1,1);
 
     glEnable(GL_LIGHTING);
@@ -232,6 +232,7 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *event)
 
 void OGLWidget::addTorusListaModelos() { this->listaModelos.push_back(new Torus()); }
 void OGLWidget::addTeapotListaModelos() { this->listaModelos.push_back(new Teapot()); }
+void OGLWidget::addKratosListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Kratos.obj", "Kratos")); }
 
 void OGLWidget::increaseCont() { this->cont++; }
 void OGLWidget::decreaseCont() { this->cont--; }
@@ -242,7 +243,7 @@ void OGLWidget::carregarEstado(){
         cout << "Erro de leitura";
     }
 
-    string tipo;
+    string nomeModelo;
     float innerRadius = 0.0;
     float outterRadius = 0;
     int slices = 0;
@@ -253,21 +254,16 @@ void OGLWidget::carregarEstado(){
 
     while(!file.eof()){
 
-        file >> tipo;
+        file >> nomeModelo;
 
-        if(tipo == "Torus"){
-            file >> innerRadius;
-            file >> outterRadius;
-            file >> slices;
-            file >> stacks;
-
+        if(nomeModelo == "Torus"){
             file >> tx >> ty >> tz;
             file >> ax >> ay >> az;
             file >> sx >> sy >> sz;
 
-            listaModelos.push_back(new Torus(innerRadius, outterRadius, slices, stacks, tx, ty, tz, ax, ay, az, sx, sy, sz));
+            listaModelos.push_back(new Torus(tx, ty, tz, ax, ay, az, sx, sy, sz));
         }
-        else if(tipo == "Teapot"){
+        else if(nomeModelo == "Teapot"){
             file >> tx >> ty >> tz;
             file >> ax >> ay >> az;
             file >> sx >> sy >> sz;
@@ -275,10 +271,52 @@ void OGLWidget::carregarEstado(){
             listaModelos.push_back(new Teapot(tx,ty,tz, ax,ay,az, sx,sy,sz));
         }
 
+        else if(nomeModelo == "Kratos"){
+            string diretorio = "../Modelador3D/data/obj/";
+            string extensao = ".obj";
+
+            file >> tx >> ty >> tz;
+            file >> ax >> ay >> az;
+            file >> sx >> sy >> sz;
+
+            string param = diretorio+nomeModelo+extensao;
+
+            listaModelos.push_back(new ObjModelLoader(param, nomeModelo, tx,ty,tz, ax,ay,az, sx,sy,sz));
+        }
+
     }
 
     listaModelos.pop_back();
 
+}
+
+void OGLWidget::salvarEstado()
+{
+    ofstream myfile ("../Modelador3D/state.txt");
+    if (myfile.is_open())
+    {
+        for (int index = 0; index < listaModelos.size(); ++index) {
+
+            myfile << listaModelos.at(index)->getNome() << " ";
+
+            myfile << listaModelos.at(index)->getTX() << " ";
+            myfile << listaModelos.at(index)->getTY() << " ";
+            myfile << listaModelos.at(index)->getTZ() << " ";
+
+            myfile << listaModelos.at(index)->getAX() << " ";
+            myfile << listaModelos.at(index)->getAY() << " ";
+            myfile << listaModelos.at(index)->getAZ() << " ";
+
+            myfile << listaModelos.at(index)->getSX() << " ";
+            myfile << listaModelos.at(index)->getSY() << " ";
+            myfile << listaModelos.at(index)->getSZ() << " ";
+
+            myfile << "\n";
+        }
+
+        myfile.close();
+    }
+    else cout << "Erro de leitura";
 }
 
 OGLWidget::~OGLWidget() { }

@@ -25,9 +25,13 @@ private slots:
 
     void on_eixoButton_clicked();
 
+    void carregarEstado();
+    void salvarEstado();
     void sair();
+
     void addTorus();
     void addTeapot();
+    void addKratos();
 
 private:
     Ui::MainWindow *ui;

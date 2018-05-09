@@ -31,11 +31,14 @@ public:
 
     void addTorusListaModelos();
     void addTeapotListaModelos();
+    void addKratosListaModelos();
 
     void increaseCont();
     void decreaseCont();
 
     void carregarEstado();
+    void salvarEstado();
+
 
     ~OGLWidget();
 

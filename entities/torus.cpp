@@ -4,10 +4,7 @@
 
 using namespace std;
 
-Torus::Torus()
-{
-    cout << "Torus";
-}
+Torus::Torus() { this->nome = "Torus"; }
 
 Torus::Torus(float innerRadius, float outterRadius, int slices, int stacks,
              float tx, float ty, float tz, float ax, float ay, float az, float sx, float sy, float sz)
@@ -31,6 +28,28 @@ Torus::Torus(float innerRadius, float outterRadius, int slices, int stacks,
     this->sx = sx;
     this->sy = sy;
     this->sz = sz;
+
+    this->nome = "Torus";
+}
+
+Torus::Torus(
+        float tx, float ty, float tz,
+        float ax, float ay, float az,
+        float sx, float sy, float sz)
+{
+    this->tx = tx;
+    this->ty = ty;
+    this->tz = tz;
+
+    this->ax = ax;
+    this->ay = ay;
+    this->az = az;
+
+    this->sx = sx;
+    this->sy = sy;
+    this->sz = sz;
+
+    this->nome = "Torus";
 }
 
 float Torus::getAX(){ return this->ax; }
@@ -128,6 +147,11 @@ void Torus::setEixo(bool eixo)
 bool Torus::isEixo()
 {
     return this->eixo;
+}
+
+string Torus::getNome()
+{
+    return this->nome;
 }
 
 

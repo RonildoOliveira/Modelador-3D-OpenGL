@@ -116,6 +116,8 @@
     <property name="title">
      <string>Arquivo</string>
     </property>
+    <addaction name="actionCarregar_Estado"/>
+    <addaction name="actionSalvar_Estado"/>
     <addaction name="actionSair"/>
    </widget>
    <widget class="QMenu" name="menuAdicionar">
@@ -124,6 +126,7 @@
     </property>
     <addaction name="actionTorus"/>
     <addaction name="actionTeapot"/>
+    <addaction name="actionKratos"/>
    </widget>
    <addaction name="menuArquivo"/>
    <addaction name="menuAdicionar"/>
@@ -150,6 +153,21 @@
   <action name="actionTeapot">
    <property name="text">
     <string>Teapot</string>
+   </property>
+  </action>
+  <action name="actionCarregar_Estado">
+   <property name="text">
+    <string>Carregar Estado</string>
+   </property>
+  </action>
+  <action name="actionSalvar_Estado">
+   <property name="text">
+    <string>Salvar Estado</string>
+   </property>
+  </action>
+  <action name="actionKratos">
+   <property name="text">
+    <string>Kratos</string>
    </property>
   </action>
  </widget>

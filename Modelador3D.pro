@@ -18,7 +18,8 @@ LIBS += -lGLU -lglut
 SOURCES += main.cpp \
     entities/torus.cpp \
     entities/model.cpp \
-    entities/teapot.cpp
+    entities/teapot.cpp \
+    entities/models/objmodelloader.cpp
 
 SOURCES += mainwindow.cpp \
     bib/Camera.cpp \
@@ -38,7 +39,8 @@ HEADERS  += mainwindow.h \
     oglwidget.h \
     entities/torus.h \
     entities/model.h \
-    entities/teapot.h
+    entities/teapot.h \
+    entities/models/objmodelloader.h
 
 FORMS    += mainwindow.ui
 

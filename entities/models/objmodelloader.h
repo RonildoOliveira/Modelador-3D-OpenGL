@@ -1,19 +1,25 @@
-#ifndef TEAPOT_H
-#define TEAPOT_H
+#ifndef OBJMODELLOADER_H
+#define OBJMODELLOADER_H
 
-#include <GL/glut.h>
-#include <bib/CameraDistante.h>
-#include <bib/Desenha.h>
+#include <iostream>
+#include <cstdlib>
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <cmath>
+#include <GL/gl.h>
+#include <entities/model.h>
 
-#include<entities/model.h>
-
-class Teapot : public Model
+class ObjModelLoader : public Model
 {
 public:
-    Teapot();
-    Teapot(float tx, float ty, float tz,
-           float ax, float ay, float az,
-           float sx, float sy, float sz);
+    ObjModelLoader();
+    ObjModelLoader(std::string filename, std::__cxx11::string nome);
+    ObjModelLoader(std::string param, std::string nomeModelo,
+            float tx, float ty, float tz,
+            float ax, float ay, float az,
+            float sx, float sy, float sz);
+
     void desenha() override;
 
     float getAX();
@@ -59,29 +65,29 @@ public:
 
     std::string getNome() override;
 
+    ~ObjModelLoader();
 private:
-    std::string nome = "Teapot";
-
-    float size = 1.0;
-
-    float trans_obj = false;
+    float ax = 0.0;
+    float ay = 0.0;
+    float az = 0.0;
 
     float tx = 0.0;
     float ty = 0.0;
     float tz = 0.0;
 
-    float ax = 0.0;
-    float ay = 0.0;
-    float az = 0.0;
-
-    float delta = 5.0; //remover ou nao
-
-    float sx = 1.0;
-    float sy = 1.0;
-    float sz = 1.0;
+    float sx = 0.3;
+    float sy = 0.3;
+    float sz = 0.3;
 
     bool selecionado = false;
     bool eixo = true;
+
+    std::string filename = "";
+    std::vector<std::vector<float>*> *vertices = new std::vector<std::vector<float>*>;
+    std::vector<std::vector<int>*>   *faces    = new std::vector<std::vector<int>*>;
+    std::vector<std::string>* GetSplittedStrings(std::string text, char delimeter);
+    float GetFloatFromString(std::string text);
+    float* GetNormal(float *coord1, float *coord2, float *coord3);
 };
 
-#endif // TEAPOT_H
+#endif // OBJMODELLOADER_H

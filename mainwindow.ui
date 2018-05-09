@@ -124,9 +124,18 @@
     <property name="title">
      <string>Adicionar</string>
     </property>
+    <widget class="QMenu" name="menuOBJ">
+     <property name="title">
+      <string>OBJ</string>
+     </property>
+     <addaction name="actionKratos"/>
+     <addaction name="actionMario"/>
+     <addaction name="actionBoy"/>
+     <addaction name="actionShelf"/>
+    </widget>
     <addaction name="actionTorus"/>
     <addaction name="actionTeapot"/>
-    <addaction name="actionKratos"/>
+    <addaction name="menuOBJ"/>
    </widget>
    <addaction name="menuArquivo"/>
    <addaction name="menuAdicionar"/>
@@ -168,6 +177,21 @@
   <action name="actionKratos">
    <property name="text">
     <string>Kratos</string>
+   </property>
+  </action>
+  <action name="actionMario">
+   <property name="text">
+    <string>Mario</string>
+   </property>
+  </action>
+  <action name="actionBoy">
+   <property name="text">
+    <string>Boy</string>
+   </property>
+  </action>
+  <action name="actionShelf">
+   <property name="text">
+    <string>Shelf</string>
    </property>
   </action>
  </widget>

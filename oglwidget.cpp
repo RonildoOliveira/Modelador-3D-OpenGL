@@ -232,7 +232,11 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *event)
 
 void OGLWidget::addTorusListaModelos() { this->listaModelos.push_back(new Torus()); }
 void OGLWidget::addTeapotListaModelos() { this->listaModelos.push_back(new Teapot()); }
+
 void OGLWidget::addKratosListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Kratos.obj", "Kratos")); }
+void OGLWidget::addBoyListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Boy.obj", "Boy")); }
+void OGLWidget::addMarioListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Mario.obj", "Mario")); }
+void OGLWidget::addShelfListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Shelf.obj", "Shelf")); }
 
 void OGLWidget::increaseCont() { this->cont++; }
 void OGLWidget::decreaseCont() { this->cont--; }
@@ -271,7 +275,7 @@ void OGLWidget::carregarEstado(){
             listaModelos.push_back(new Teapot(tx,ty,tz, ax,ay,az, sx,sy,sz));
         }
 
-        else if(nomeModelo == "Kratos"){
+        else if(nomeModelo == "Kratos" || nomeModelo == "Mario" || nomeModelo == "Boy"){
             string diretorio = "../Modelador3D/data/obj/";
             string extensao = ".obj";
 

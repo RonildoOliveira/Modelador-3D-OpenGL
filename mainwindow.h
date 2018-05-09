@@ -31,7 +31,11 @@ private slots:
 
     void addTorus();
     void addTeapot();
+
     void addKratos();
+    void addMario();
+    void addBoy();
+    void addShelf();
 
 private:
     Ui::MainWindow *ui;

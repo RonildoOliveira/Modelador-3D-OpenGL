@@ -21,7 +21,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionTorus, &QAction::triggered, this, &MainWindow::addTorus);
     connect(ui->actionTeapot, &QAction::triggered, this, &MainWindow::addTeapot);
+
     connect(ui->actionKratos, &QAction::triggered, this, &MainWindow::addKratos);
+    connect(ui->actionMario, &QAction::triggered, this, &MainWindow::addMario);
+    connect(ui->actionBoy, &QAction::triggered, this, &MainWindow::addBoy);
+    connect(ui->actionShelf, &QAction::triggered, this, &MainWindow::addShelf);
 }
 
 MainWindow::~MainWindow()
@@ -87,6 +91,21 @@ void MainWindow::addTeapot(){
 void MainWindow::addKratos()
 {
     ui->openGLWidget->addKratosListaModelos();
+}
+
+void MainWindow::addMario()
+{
+    ui->openGLWidget->addMarioListaModelos();
+}
+
+void MainWindow::addBoy()
+{
+    ui->openGLWidget->addBoyListaModelos();
+}
+
+void MainWindow::addShelf()
+{
+    ui->openGLWidget->addShelfListaModelos();
 }
 
 void MainWindow::sair(){

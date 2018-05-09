@@ -31,7 +31,11 @@ public:
 
     void addTorusListaModelos();
     void addTeapotListaModelos();
+
     void addKratosListaModelos();
+    void addBoyListaModelos();
+    void addMarioListaModelos();
+    void addShelfListaModelos();
 
     void increaseCont();
     void decreaseCont();

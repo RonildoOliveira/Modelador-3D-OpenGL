@@ -1,6 +1,21 @@
 # Modelador 3D
 
+## Elementos
+- Torus
+```
+Torus(float innerRadius, float outterRadius,
+	  int slices, int stacks,
+	  float tx, float ty, float tz,
+	  float ax, float ay, float az,
+ 	  float sx, float sy, float sz);
+```
 
+- Teapot
+```
+Teapot(float tx, float ty, float tz,
+	   float ax, float ay, float az,
+	   float sx, float sy, float sz);
+```
 ## Sistema:
 - Ubuntu 16.04.4 LTS (Xenial Xerus)
 

@@ -1,14 +1,15 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 
+#include <fstream>
 #include <iostream>
+#include <vector>
 
 #include "oglwidget.h"
 
 #include "entities/model.h"
 #include "entities/torus.h"
 #include "entities/teapot.h"
-
 
 OGLWidget::OGLWidget(QWidget *parent)
     : QGLWidget(parent)
@@ -19,6 +20,8 @@ OGLWidget::OGLWidget(QWidget *parent)
 
 void OGLWidget::initializeGL()
 {
+    carregarEstado();
+
     glClearColor(1,1,1,1);
 
     glEnable(GL_LIGHTING);
@@ -27,8 +30,8 @@ void OGLWidget::initializeGL()
     //glCullFace(GL_BACK);
     glEnable(GL_NORMALIZE); //mantem a qualidade da iluminacao mesmo quando glScalef eh usada
 
-    glShadeModel(GL_SMOOTH);
-    //glShadeModel(GL_FLAT);
+    //glShadeModel(GL_SMOOTH);
+    glShadeModel(GL_FLAT);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -177,14 +180,11 @@ void OGLWidget::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void OGLWidget::mousePressEvent(QMouseEvent *event)
-{
-    lastPos = event->pos();
-}
+void OGLWidget::mousePressEvent(QMouseEvent *event) { lastPos = event->pos(); }
 
 void OGLWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    float fator = 10.0;
+    float fator = 100.0;
 
     int x = event->x();
     int y = event->y();
@@ -192,52 +192,93 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *event)
     int lx = lastPos.x();
     int ly = lastPos.y();
 
+
     if(!listaModelos.empty()){
         if (event->buttons() & Qt::LeftButton) {
             listaModelos.at(cont)->addAX(0.1*(y - ly));
             listaModelos.at(cont)->addAY(0.1*(x - lx));
-
         } else if (event->buttons() & Qt::RightButton) {
-            listaModelos.at(cont)->addTX(0.01*(x - lx));
-            listaModelos.at(cont)->addTY(-0.01*(y - ly));
+            listaModelos.at(cont)->addTX((x - lx)/fator);
+            listaModelos.at(cont)->addTY(-(y - ly)/fator);
+        }
+
+        else if (event->buttons() & Qt::MiddleButton) {
+
+                listaModelos.at(cont)->addTZ((y - ly)/fator);
+
+                listaModelos.at(cont)->addAZ(-(x - lx)/fator);
+
         }
     }
 
-     fator = 1000.0;
+    //TODO AMBIENTE
+    fator = 100.0;
+    if (event->buttons() & Qt::RightButton && event->buttons() & Qt::MiddleButton) {
+            if (!trans_obj) {
+                cam->translatex(x,lx);
+                cam->translatey(y,ly);
+            }
+
+        }
+
     if (event->buttons() & Qt::LeftButton && event->buttons() & Qt::RightButton) {
         if (!trans_obj) {
             cam->zoom(y,ly);
-        } else {
-            listaModelos.at(cont)->addTZ((y - ly)/fator);
-            fator = 100.0;
-            listaModelos.at(cont)->addAZ((x - lx)/fator);
         }
     }
 
     lastPos = event->pos();
 }
 
-void OGLWidget::addTorusListaModelos()
-{
-    this->listaModelos.push_back(new Torus());
+void OGLWidget::addTorusListaModelos() { this->listaModelos.push_back(new Torus()); }
+void OGLWidget::addTeapotListaModelos() { this->listaModelos.push_back(new Teapot()); }
+
+void OGLWidget::increaseCont() { this->cont++; }
+void OGLWidget::decreaseCont() { this->cont--; }
+
+void OGLWidget::carregarEstado(){
+    std::ifstream file("../Modelador3D/state.txt");
+    if (!file) {
+        cout << "Erro de leitura";
+    }
+
+    string tipo;
+    float innerRadius = 0.0;
+    float outterRadius = 0;
+    int slices = 0;
+    int stacks = 0;
+    float tx, ty, tz = 0;
+    float ax, ay, az = 0;
+    float sx, sy, sz = 0;
+
+    while(!file.eof()){
+
+        file >> tipo;
+
+        if(tipo == "Torus"){
+            file >> innerRadius;
+            file >> outterRadius;
+            file >> slices;
+            file >> stacks;
+
+            file >> tx >> ty >> tz;
+            file >> ax >> ay >> az;
+            file >> sx >> sy >> sz;
+
+            listaModelos.push_back(new Torus(innerRadius, outterRadius, slices, stacks, tx, ty, tz, ax, ay, az, sx, sy, sz));
+        }
+        else if(tipo == "Teapot"){
+            file >> tx >> ty >> tz;
+            file >> ax >> ay >> az;
+            file >> sx >> sy >> sz;
+
+            listaModelos.push_back(new Teapot(tx,ty,tz, ax,ay,az, sx,sy,sz));
+        }
+
+    }
+
+    listaModelos.pop_back();
+
 }
 
-void OGLWidget::addTeapotListaModelos()
-{
-    this->listaModelos.push_back(new Teapot());
-}
-
-void OGLWidget::increaseCont()
-{
-    this->cont++;
-}
-
-void OGLWidget::decreaseCont()
-{
-    this->cont--;
-}
-
-OGLWidget::~OGLWidget()
-{
-
-}
+OGLWidget::~OGLWidget() { }

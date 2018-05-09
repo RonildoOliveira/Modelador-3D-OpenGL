@@ -35,6 +35,8 @@ public:
     void increaseCont();
     void decreaseCont();
 
+    void carregarEstado();
+
     ~OGLWidget();
 
 public slots:

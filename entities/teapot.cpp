@@ -4,6 +4,63 @@
 using namespace std;
 
 Teapot::Teapot(){ cout<<"Solid Teapot"; }
+Teapot::Teapot(float tx, float ty, float tz, float ax, float ay, float az, float sx, float sy, float sz){
+    this->tx = tx;
+    this->ty = ty;
+    this->tz = tz;
+
+    this->ax = ax;
+    this->ay = ay;
+    this->az = az;
+
+    this->sx = sx;
+    this->sy = sy;
+    this->sz = sz;
+}
+
+float Teapot::getAX() { return this->ax; }
+float Teapot::getAY() { return this->ay; }
+float Teapot::getAZ() { return this->az; }
+
+void Teapot::addAX(float ax) { this->ax += ax; }
+void Teapot::addAY(float ay) { this->ay += ay; }
+void Teapot::addAZ(float az) { this->az += az; }
+
+float Teapot::getSize() { return this->size; }
+void Teapot::setSize(float size) { this->size = size; }
+
+void Teapot::addSX(float sx) { this->sx+=sx; }
+void Teapot::addSY(float sy) { this->sy+=sy; }
+void Teapot::addSZ(float sz) { this->sz+=sz; }
+
+float Teapot::getTX() { return this->tx; }
+float Teapot::getTY() { return this->ty; }
+float Teapot::getTZ() { return this->tz; }
+
+void Teapot::addTX(float tx) { this->tx+=tx; }
+void Teapot::addTY(float ty) { this->ty+=ty; }
+void Teapot::addTZ(float tz) { this->tz+=tz; }
+
+float Teapot::getSX() { return this->sx; }
+float Teapot::getSY() { return this->sy; }
+float Teapot::getSZ() { return this->sz; }
+
+bool Teapot::isSelecionado(){
+    return this->selecionado;
+}
+
+void Teapot::setEixo(bool eixo) { this->eixo = eixo; }
+bool Teapot::isEixo() { return this->eixo; }
+
+void Teapot::setSelecionado(bool selecionado){ this->selecionado = selecionado; }
+
+void Teapot::addSlices() {}
+void Teapot::decSlices() {}
+void Teapot::addStacks() {}
+void Teapot::decStacks() {}
+
+int Teapot::getSlices() { return 0; }
+int Teapot::getStacks() { return 0; }
 
 void Teapot::desenha()
 {
@@ -34,132 +91,4 @@ void Teapot::desenha()
 
         glutSolidTeapot(this->getSize());
     glPopMatrix();
-}
-
-float Teapot::getAX(){
-    return this->ax;
-}
-
-void Teapot::addAX(float ax){
-    this->ax += ax;
-}
-
-float Teapot::getAY(){
-    return this->ay;
-}
-
-void Teapot::addAY(float ay){
-    this->ay += ay;
-}
-
-float Teapot::getAZ(){
-    return this->az;
-}
-
-float Teapot::getSize()
-{
-    return this->size;
-}
-
-void Teapot::setSize(float size)
-{
-    this->size = size;
-}
-
-void Teapot::addAZ(float az){
-    this->az += az;
-}
-
-float Teapot::getTX()
-{
-    return this->tx;
-}
-
-float Teapot::getTY()
-{
-    return this->ty;
-}
-
-float Teapot::getTZ()
-{
-    return this->tz;
-}
-
-void Teapot::addTX(float tx)
-{
-    this->tx+=tx;
-}
-
-void Teapot::addTY(float ty)
-{
-    this->ty+=ty;
-}
-
-void Teapot::addTZ(float tz)
-{
-    this->tz+=tz;
-}
-
-float Teapot::getSX()
-{
-    return this->sx;
-}
-
-float Teapot::getSY()
-{
-    return this->sy;
-}
-
-float Teapot::getSZ()
-{
-    return this->sz;
-}
-
-bool Teapot::isSelecionado(){
-    return this->selecionado;
-}
-
-void Teapot::setEixo(bool eixo)
-{
-    this->eixo = eixo;
-}
-
-bool Teapot::isEixo()
-{
-    return this->eixo;
-}
-
-void Teapot::setSelecionado(bool selecionado){
-    this->selecionado = selecionado;
-}
-
-void Teapot::addSlices()
-{
-
-}
-
-void Teapot::addStacks()
-{
-
-}
-
-void Teapot::decSlices()
-{
-
-}
-
-void Teapot::decStacks()
-{
-
-}
-
-
-int Teapot::getSlices()
-{
-    return 0;
-}
-
-int Teapot::getStacks()
-{
-    return 0;
 }

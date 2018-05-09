@@ -10,6 +10,9 @@
 class Teapot : public Model {
 public:
     Teapot();
+    Teapot(float tx, float ty, float tz,
+           float ax, float ay, float az,
+           float sx, float sy, float sz);
     void desenha();
 
     float getAX();
@@ -23,6 +26,14 @@ public:
     void addAY(float ay) override;
     void addAZ(float az) override;
 
+    void addSX(float sx) override;
+    void addSY(float sy) override;
+    void addSZ(float sz) override;
+
+    float getSX() override;
+    float getSY() override;
+    float getSZ() override;
+
     float getTX();
     float getTY();
     float getTZ();
@@ -30,10 +41,6 @@ public:
     void addTX(float tx) override;
     void addTY(float ty) override;
     void addTZ(float tz) override;
-
-    float getSX();
-    float getSY();
-    float getSZ();
 
     void addSlices() override;
     void addStacks() override;

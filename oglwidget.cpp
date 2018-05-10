@@ -15,7 +15,8 @@
 #include "entities/models/objmodelloader.h"
 #include "entities/models/tdsmodelloader.h"
 
-TdsModelLoader * lobo3ds = new TdsModelLoader("../Modelador3D/data/3ds/wolf.3ds");
+TdsModelLoader * lobo3ds = new TdsModelLoader("../Modelador3D/data/3ds/skeleton.3ds");
+
 OGLWidget::OGLWidget(QWidget *parent)
     : QGLWidget(parent)
 {
@@ -25,6 +26,8 @@ OGLWidget::OGLWidget(QWidget *parent)
 
 void OGLWidget::initializeGL()
 {
+    listaModelos.push_back(lobo3ds);
+
     glClearColor(1,1,1,1);
 
     glEnable(GL_LIGHTING);
@@ -80,8 +83,6 @@ void OGLWidget::paintGL()
             listaModelos.at(index)->desenha();
         }
     }
-
-    lobo3ds->desenha();
 
     displayEnd();
 }

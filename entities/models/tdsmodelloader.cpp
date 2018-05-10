@@ -263,6 +263,29 @@ void TdsModelLoader::render_node(Lib3dsNode *node)
 
 void TdsModelLoader::desenha()
 {
+    //composicao de transformacoes
+    glTranslated(this->getTX(),this->getTY(),this->getTZ());
+
+    glRotated(this->getAX(),0,0,1);
+    glRotated(this->getAY(),0,1,0);
+    glRotated(this->getAZ(),1,0,0);
+
+    glScaled(this->getSX(),this->getSY(),this->getSZ());
+
+    //desenhando eixos do sistema de coordenadas local 1
+    if(isEixo()){
+        Desenha::drawEixos( 0.5 );
+    }
+
+    //desenhando objeto
+
+    if(isSelecionado()){
+        glColor3f(0.22,1.0,0.07);
+    }
+    else{
+        glColor3f(0.5,0.5,0.5);
+    }
+
     for (Lib3dsNode *node = file->nodes; node!=0; node=node->next) {
         render_node(node);
     }

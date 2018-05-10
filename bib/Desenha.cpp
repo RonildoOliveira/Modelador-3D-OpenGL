@@ -314,3 +314,90 @@ void Desenha::setTransformODE(const dReal* pos, const dReal* R)
 }
 //---------------------------------------------------------------------------
 
+void Desenha:: Triangulo3D(double a, double b, double c, double d, double e, double f){
+    glPushMatrix();
+    glBegin(GL_TRIANGLES);
+        glNormal3f(0,0,1);
+        //glColor3d(1.5,1.5,0);
+        glVertex3d( a, b, c );
+        glVertex3d(  d, b, c );
+        glVertex3d( (a+d)/2, e, c );
+    glEnd();
+    glPopMatrix();
+    glPushMatrix();
+    glBegin(GL_TRIANGLES);
+      glNormal3f(0,0,-1);
+      //glColor3d(1.5,1.5,0);
+        glVertex3d( a, b, f );
+        glVertex3d(  d, b, f );
+        glVertex3d( (a+d)/2, e, f );
+    glEnd();
+    glPopMatrix();
+    glPushMatrix();
+    glBegin(GL_QUADS);
+      glNormal3f(-1,0,0);
+      //glColor3d(1.5,1.5,0);
+        glVertex3d( a, b, c );
+        glVertex3d( (a+d)/2, e, c );
+        glVertex3d( (a+d)/2, e, f );
+        glVertex3d( a, b, f );
+    glEnd();
+    glPopMatrix();
+    glPushMatrix();
+    glBegin(GL_QUADS);
+      glNormal3f(1,0,0);
+      //glColor3d(1.5,1.5,0);
+        glVertex3d(  d, b, c );
+        glVertex3d( (a+d)/2, e, c );
+        glVertex3d( (a+d)/2, e, f );
+        glVertex3d(  d, b, f );
+    glEnd();
+    glPopMatrix();
+}
+
+
+void Desenha:: Triangulo3DV(double a, double b, double c, double d, double e, double f){
+    glPushMatrix();
+    //glNormal3f(1,0,0);
+    glBegin(GL_TRIANGLES);
+        glNormal3f(-1,0,0);
+        //glColor3d(1.5,1.5,0);
+        glVertex3d( a, b, c );
+        glVertex3d(  a, b, f );
+        glVertex3d( a, e, (c+f)/2 );
+    glEnd();
+    glPopMatrix();
+
+    glPushMatrix();
+    glBegin(GL_TRIANGLES);
+      glNormal3f(1,0,0);
+      //glColor3d(1.5,1.5,0);
+      glVertex3d( d, b, c );
+      glVertex3d(  d, b, f );
+      glVertex3d( d, e, (c+f)/2 );
+    glEnd();
+    glPopMatrix();
+
+    glPushMatrix();
+    glBegin(GL_QUADS);
+      glNormal3f(0,0,-1);
+      //glColor3d(1.5,1.5,0);
+        glVertex3d( a, b, f );
+        glVertex3d( d, b, f );
+        glVertex3d( d, e, (c+f)/2 );
+        glVertex3d( a, e, (c+f)/2 );
+    glEnd();
+    glPopMatrix();
+
+    glPushMatrix();
+    glBegin(GL_QUADS);
+      glNormal3f(0,0,1);
+      //glColor3d(1.5,1.5,0);
+      glVertex3d( a, b, c );
+      glVertex3d( d, b, c );
+      glVertex3d( d, e, (c+f)/2 );
+      glVertex3d( a, e, (c+f)/2 );
+    glEnd();
+    glPopMatrix();
+}
+

@@ -31,6 +31,7 @@ public:
 
     void addTorusListaModelos();
     void addTeapotListaModelos();
+    void addCubeListaModelos();
 
     void addKratosListaModelos();
     void addBoyListaModelos();
@@ -48,10 +49,16 @@ public:
     void mudancasTranslacao(float x, float y, float z);
     void mudancasEscala(float x, float y, float z);
 
+    void mudaCamera();
+
     void carregarEstado();
     void carregarModelo3DOBJ(string caminho, string nome);
     void salvarEstado();
 
+    Camera* cam = new CameraDistante(19.5323,9.36482,24.4429,-0.0726667,0.927333,0,-0.162686,0.965604,-0.202832);
+    float savedCamera[9];
+
+    bool islistaVazia();
 
     ~OGLWidget();
 
@@ -87,11 +94,6 @@ private:
     float sx = 1.0;
     float sy = 1.0;
     float sz = 1.0;
-
-
-
-    Camera* cam = new CameraDistante();
-    float savedCamera[9];
 
     QTimer timer;
     QPoint lastPos;

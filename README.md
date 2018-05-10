@@ -24,6 +24,8 @@ Teapot(float tx, float ty, float tz,
 ### GLUT
 ```
 sudo apt-get install freeglut3-dev
+sudo apt-get install libsdl-image1.2-dev
+
 ```
 
 * **Ronildo Oliveira** - *Trabalho Inicial* - [GitHub](https://github.com/RonildoOliveira)

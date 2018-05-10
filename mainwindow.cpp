@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionTorus, &QAction::triggered, this, &MainWindow::addTorus);
     connect(ui->actionTeapot, &QAction::triggered, this, &MainWindow::addTeapot);
+    connect(ui->actionCube, &QAction::triggered, this, &MainWindow::addCube);
 
     connect(ui->actionKratos, &QAction::triggered, this, &MainWindow::addKratos);
     connect(ui->actionMario, &QAction::triggered, this, &MainWindow::addMario);
@@ -66,7 +67,7 @@ void MainWindow::on_eixoButton_clicked()
 
 void MainWindow::on_aplicarTransformacao_clicked()
 {
-    ui->campoTransformacao->setInputMask( "0.0000,0.0000,0.0000" );
+    ui->campoTransformacao->setInputMask( "00.0000,00.0000,00.0000" );
     QString qTexto = ui->campoTransformacao->text();
     std::string texto = qTexto.toUtf8().constData();
     spliter(texto, ",");
@@ -110,6 +111,11 @@ void MainWindow::addTeapot(){
     ui->openGLWidget->addTeapotListaModelos();
 }
 
+void MainWindow::addCube()
+{
+    ui->openGLWidget->addCubeListaModelos();
+}
+
 void MainWindow::addKratos()
 {
     ui->openGLWidget->addKratosListaModelos();
@@ -134,14 +140,16 @@ void MainWindow::xValueReceived(int x)
 {
     float fator = 10.0;
 
-    if(ui->tRadioButton->isChecked())
-        ui->openGLWidget->mudancasEixoX('T', (x / (fator*10)));
+    if(!ui->openGLWidget->islistaVazia()){
+        if(ui->tRadioButton->isChecked())
+            ui->openGLWidget->mudancasEixoX('T', (x / (fator*10)));
 
-    if(ui->aRadioButton->isChecked())
-        ui->openGLWidget->mudancasEixoX('A', (x));
+        if(ui->aRadioButton->isChecked())
+            ui->openGLWidget->mudancasEixoX('A', (x));
 
-    if(ui->sRadioButton->isChecked())
-        ui->openGLWidget->mudancasEixoX('S', (x / (fator*10)));
+        if(ui->sRadioButton->isChecked())
+            ui->openGLWidget->mudancasEixoX('S', (x / (fator*10)));
+    }
 }
 
 void MainWindow::yValueReceived(int y)
@@ -200,6 +208,11 @@ void MainWindow::spliter(string linha, string delimitador)
 
     if(ui->tRadioButton->isChecked())
         ui->openGLWidget->mudancasTranslacao(vetores.at(0),vetores.at(1),vetores.at(2));
+}
+
+void MainWindow::on_cam01PushButton_clicked()
+{
+    ui->openGLWidget->mudaCamera();
 }
 
 void MainWindow::sair(){

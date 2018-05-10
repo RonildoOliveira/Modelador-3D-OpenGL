@@ -33,6 +33,7 @@ private slots:
 
     void addTorus();
     void addTeapot();
+    void addCube();
 
     void addKratos();
     void addMario();
@@ -44,6 +45,8 @@ private slots:
     void zValueReceived(int z);
 
     void spliter(std::string linha, std::string delimitador);
+
+    void on_cam01PushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

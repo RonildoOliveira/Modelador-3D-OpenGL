@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1342</width>
-    <height>650</height>
+    <height>750</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -264,6 +264,45 @@
      </property>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>1020</x>
+      <y>260</y>
+      <width>171</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Câmeras</string>
+    </property>
+    <widget class="QPushButton" name="cam01PushButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>61</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Cam 01</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="cam02PushButton">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>30</y>
+       <width>61</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Cam 02</string>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -287,8 +326,8 @@
     <addaction name="actionCarregar_Estado"/>
     <addaction name="actionSalvar_Estado"/>
     <addaction name="separator"/>
-    <addaction name="actionSair"/>
     <addaction name="menuCarregar_Modelo_3D"/>
+    <addaction name="actionSair"/>
    </widget>
    <widget class="QMenu" name="menuAdicionar">
     <property name="title">
@@ -309,6 +348,7 @@
      </property>
      <addaction name="actionTeapot"/>
      <addaction name="actionTorus"/>
+     <addaction name="actionCube"/>
     </widget>
     <addaction name="menuOpen_GL"/>
     <addaction name="menuOBJ"/>
@@ -373,6 +413,11 @@
   <action name="actionCarregarOBJ">
    <property name="text">
     <string>OBJ</string>
+   </property>
+  </action>
+  <action name="actionCube">
+   <property name="text">
+    <string>Cube</string>
    </property>
   </action>
  </widget>

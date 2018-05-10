@@ -10,9 +10,12 @@
 #include "entities/model.h"
 #include "entities/torus.h"
 #include "entities/teapot.h"
+#include "entities/cube.h"
 
 #include "entities/models/objmodelloader.h"
+#include "entities/models/tdsmodelloader.h"
 
+TdsModelLoader * lobo3ds = new TdsModelLoader("../Modelador3D/data/3ds/wolf.3ds");
 OGLWidget::OGLWidget(QWidget *parent)
     : QGLWidget(parent)
 {
@@ -77,6 +80,8 @@ void OGLWidget::paintGL()
             listaModelos.at(index)->desenha();
         }
     }
+
+    lobo3ds->desenha();
 
     displayEnd();
 }
@@ -232,6 +237,7 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *event)
 
 void OGLWidget::addTorusListaModelos() { this->listaModelos.push_back(new Torus()); }
 void OGLWidget::addTeapotListaModelos() { this->listaModelos.push_back(new Teapot()); }
+void OGLWidget::addCubeListaModelos() { this->listaModelos.push_back(new Cube()); }
 
 void OGLWidget::addKratosListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Kratos.obj", "Kratos")); }
 void OGLWidget::addBoyListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Boy.obj", "Boy")); }
@@ -301,6 +307,11 @@ void OGLWidget::mudancasEscala(float x, float y, float z)
     listaModelos.at(cont)->setSZ(z);
 }
 
+void OGLWidget::mudaCamera()
+{
+    this->cam = new CameraDistante(13.9053,2.46208,7.26844,0.237068,1.11059,-0.439761,-0.0747426,0.996312,-0.0421512);
+}
+
 void OGLWidget::carregarEstado(){
     std::ifstream file("../Modelador3D/state.txt");
     if (!file) {
@@ -335,7 +346,15 @@ void OGLWidget::carregarEstado(){
             listaModelos.push_back(new Teapot(tx,ty,tz, ax,ay,az, sx,sy,sz));
         }
 
-        else if(nomeModelo == "Kratos" || nomeModelo == "Mario" || nomeModelo == "Boy"){
+        else if(nomeModelo == "Cube"){
+            file >> tx >> ty >> tz;
+            file >> ax >> ay >> az;
+            file >> sx >> sy >> sz;
+
+            listaModelos.push_back(new Cube(tx,ty,tz, ax,ay,az, sx,sy,sz));
+        }
+
+        else if(nomeModelo == "Kratos" || nomeModelo == "Mario" || nomeModelo == "Boy" || nomeModelo == "Shelf"){
             string diretorio = "../Modelador3D/data/obj/";
             string extensao = ".obj";
 
@@ -386,6 +405,13 @@ void OGLWidget::salvarEstado()
         myfile.close();
     }
     else cout << "Erro de leitura";
+}
+
+bool OGLWidget::islistaVazia()
+{
+    if(this->listaModelos.empty())
+        return true;
+    return false;
 }
 
 OGLWidget::~OGLWidget() { }

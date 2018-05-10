@@ -24,6 +24,9 @@ class Desenha
       static void drawEixos(GLfloat);
       ~Desenha();
       static void setTransformODE(const dReal* pos, const dReal* R);
+
+      static void Triangulo3D(double a, double b, double c, double d, double e, double f);
+            static void Triangulo3DV(double a, double b, double c, double d, double e, double f);
 };
 
 #endif

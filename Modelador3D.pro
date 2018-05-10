@@ -12,14 +12,16 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Modelador3D
 TEMPLATE = app
 
-
-LIBS += -lGLU -lglut
+DEFINES += USE_SDL
+LIBS += -lglut -l3ds -lGLU -lGL -lm -lSDL -lSDL_image
 
 SOURCES += main.cpp \
     entities/torus.cpp \
     entities/model.cpp \
     entities/teapot.cpp \
-    entities/models/objmodelloader.cpp
+    entities/models/objmodelloader.cpp \
+    entities/cube.cpp \
+    entities/models/tdsmodelloader.cpp
 
 SOURCES += mainwindow.cpp \
     bib/Camera.cpp \
@@ -40,7 +42,9 @@ HEADERS  += mainwindow.h \
     entities/torus.h \
     entities/model.h \
     entities/teapot.h \
-    entities/models/objmodelloader.h
+    entities/models/objmodelloader.h \
+    entities/cube.h \
+    entities/models/tdsmodelloader.h
 
 FORMS    += mainwindow.ui
 

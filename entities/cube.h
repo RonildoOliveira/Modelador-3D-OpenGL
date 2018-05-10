@@ -1,5 +1,5 @@
-#ifndef TEAPOT_H
-#define TEAPOT_H
+#ifndef CUBE_H
+#define CUBE_H
 
 #include <GL/glut.h>
 #include <bib/CameraDistante.h>
@@ -7,13 +7,13 @@
 
 #include<entities/model.h>
 
-class Teapot : public Model
+class Cube : public Model
 {
 public:
-    Teapot();
-    Teapot(float tx, float ty, float tz,
-           float ax, float ay, float az,
-           float sx, float sy, float sz);
+    Cube();
+    Cube(float tx, float ty, float tz,
+         float ax, float ay, float az,
+         float sx, float sy, float sz);
 
     void desenha() override;
 
@@ -97,4 +97,4 @@ private:
     bool eixo = true;
 };
 
-#endif // TEAPOT_H
+#endif // CUBE_H

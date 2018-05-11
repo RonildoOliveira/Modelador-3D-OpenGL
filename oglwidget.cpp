@@ -15,7 +15,6 @@
 #include "entities/models/objmodelloader.h"
 #include "entities/models/tdsmodelloader.h"
 
-TdsModelLoader * lobo3ds = new TdsModelLoader("../Modelador3D/data/3ds/skeleton.3ds");
 
 OGLWidget::OGLWidget(QWidget *parent)
     : QGLWidget(parent)
@@ -26,9 +25,10 @@ OGLWidget::OGLWidget(QWidget *parent)
 
 void OGLWidget::initializeGL()
 {
-    listaModelos.push_back(lobo3ds);
+    carregaCamera();
 
-    glClearColor(1,1,1,1);
+    //glClearColor(1,1,1,1);
+    glClearColor(0,0,0,1);
 
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
@@ -245,6 +245,10 @@ void OGLWidget::addBoyListaModelos() { this->listaModelos.push_back(new ObjModel
 void OGLWidget::addMarioListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Mario.obj", "Mario")); }
 void OGLWidget::addShelfListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Shelf.obj", "Shelf")); }
 
+void OGLWidget::addEsqueletoListaModelos() { this->listaModelos.push_back(new TdsModelLoader("../Modelador3D/data/3ds/Esqueleto.3ds", "Esqueleto")); }
+void OGLWidget::addCachorroListaModelos() { this->listaModelos.push_back(new TdsModelLoader("../Modelador3D/data/3ds/Cachorro.3ds", "Cachorro")); }
+void OGLWidget::addLoboListaModelos() { this->listaModelos.push_back(new TdsModelLoader("../Modelador3D/data/3ds/Lobo.3ds", "Lobo"));}
+
 void OGLWidget::increaseCont() { this->cont++; }
 void OGLWidget::decreaseCont() { this->cont--; }
 
@@ -308,9 +312,19 @@ void OGLWidget::mudancasEscala(float x, float y, float z)
     listaModelos.at(cont)->setSZ(z);
 }
 
-void OGLWidget::mudaCamera()
+void OGLWidget::mudaCamera(int numeroCamera)
 {
-    this->cam = new CameraDistante(13.9053,2.46208,7.26844,0.237068,1.11059,-0.439761,-0.0747426,0.996312,-0.0421512);
+    switch (numeroCamera) {
+    case 1:
+        this->cam = new CameraDistante(13.9053,2.46208,7.26844,0.237068,1.11059,-0.439761,-0.0747426,0.996312,-0.0421512);
+        break;
+    case 2:
+        this->cam = new CameraDistante(19.5323, 19.36482, 24.4429, -0.0726667, 3.927333, 0, -0.162686, 1.965604, -0.202832);
+        break;
+    default:
+        break;
+    }
+
 }
 
 void OGLWidget::carregarEstado(){
@@ -368,6 +382,19 @@ void OGLWidget::carregarEstado(){
             listaModelos.push_back(new ObjModelLoader(param, nomeModelo, tx,ty,tz, ax,ay,az, sx,sy,sz));
         }
 
+        else if(nomeModelo == "Esqueleto" || nomeModelo == "Cachorro" || nomeModelo == "Lobo"){
+            string diretorio = "../Modelador3D/data/3ds/";
+            string extensao = ".3ds";
+
+            file >> tx >> ty >> tz;
+            file >> ax >> ay >> az;
+            file >> sx >> sy >> sz;
+
+            string param = diretorio+nomeModelo+extensao;
+
+            listaModelos.push_back(new ObjModelLoader(param, nomeModelo, tx,ty,tz, ax,ay,az, sx,sy,sz));
+        }
+
     }
 
     listaModelos.pop_back();
@@ -377,6 +404,63 @@ void OGLWidget::carregarEstado(){
 void OGLWidget::carregarModelo3DOBJ(string caminho, string nome)
 {
     listaModelos.push_back(new ObjModelLoader(caminho, nome));
+}
+
+void OGLWidget::carregaCamera()
+{
+    std::ifstream file("../Modelador3D/camera.txt");
+    string nomeModelo;
+
+    GLfloat ex;
+    GLfloat ey;
+    GLfloat ez;
+    GLfloat cx;
+    GLfloat cy;
+    GLfloat cz;
+    GLfloat ux;
+    GLfloat uy;
+    GLfloat uz;
+
+    if (!file) {
+        cout << "Erro de leitura";
+    }
+
+    while(!file.eof()){
+
+        file >> nomeModelo;
+        file >> ex >> ey >> ez;
+        file >> cx >> cy >> cz;
+        file >> ux >> uy >> uz;
+
+        this->cam = new CameraDistante(ex,ey,ez, cx,cy,cz, ux,uy,uz);
+    }
+}
+
+void OGLWidget::salvaCamera()
+{
+    ofstream myfile ("../Modelador3D/camera.txt");
+
+    myfile << "CameraDistante";
+
+    if (myfile.is_open())
+    {
+        //ecu
+        myfile << " " << this->cam->e.x;
+        myfile << " " << this->cam->e.y;
+        myfile << " " << this->cam->e.z;
+
+        myfile << " " << this->cam->c.x;
+        myfile << " " << this->cam->c.y;
+        myfile << " " << this->cam->c.z;
+
+        myfile << " " << this->cam->u.x;
+        myfile << " " << this->cam->u.y;
+        myfile << " " << this->cam->u.z;
+
+        myfile.close();
+    }
+
+    else cout << "Erro de leitura";
 }
 
 void OGLWidget::salvarEstado()

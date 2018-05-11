@@ -40,6 +40,10 @@ private slots:
     void addBoy();
     void addShelf();
 
+    void addEsqueleto();
+    void addCachorro();
+    void addLobo();
+
     void xValueReceived(int x);
     void yValueReceived(int y);
     void zValueReceived(int z);
@@ -47,6 +51,10 @@ private slots:
     void spliter(std::string linha, std::string delimitador);
 
     void on_cam01PushButton_clicked();
+    void on_cam02PushButton_clicked();
+
+    void on_resetCameraPushButton_clicked();
+    void on_salvarCameraPushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

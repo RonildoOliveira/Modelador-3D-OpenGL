@@ -29,6 +29,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionBoy, &QAction::triggered, this, &MainWindow::addBoy);
     connect(ui->actionShelf, &QAction::triggered, this, &MainWindow::addShelf);
 
+    connect(ui->actionEsqueleto, &QAction::triggered, this, &MainWindow::addEsqueleto);
+    connect(ui->actionCachorro, &QAction::triggered, this, &MainWindow::addCachorro);
+    connect(ui->actionLobo, &QAction::triggered, this, &MainWindow::addLobo);
+
     connect(ui->eixoXSlider, SIGNAL(valueChanged(int)), this, SLOT(xValueReceived(int)));
     connect(ui->eixoYSlider, SIGNAL(valueChanged(int)), this, SLOT(yValueReceived(int)));
     connect(ui->eixoZSlider, SIGNAL(valueChanged(int)), this, SLOT(zValueReceived(int)));
@@ -67,7 +71,7 @@ void MainWindow::on_eixoButton_clicked()
 
 void MainWindow::on_aplicarTransformacao_clicked()
 {
-    ui->campoTransformacao->setInputMask( "00.0000,00.0000,00.0000" );
+    ui->campoTransformacao->setInputMask( "\00.0000,\00.0000,\00.0000" );
     QString qTexto = ui->campoTransformacao->text();
     std::string texto = qTexto.toUtf8().constData();
     spliter(texto, ",");
@@ -134,6 +138,21 @@ void MainWindow::addBoy()
 void MainWindow::addShelf()
 {
     ui->openGLWidget->addShelfListaModelos();
+}
+
+void MainWindow::addEsqueleto()
+{
+    ui->openGLWidget->addEsqueletoListaModelos();
+}
+
+void MainWindow::addCachorro()
+{
+    ui->openGLWidget->addCachorroListaModelos();
+}
+
+void MainWindow::addLobo()
+{
+    ui->openGLWidget->addLoboListaModelos();
 }
 
 void MainWindow::xValueReceived(int x)
@@ -210,9 +229,13 @@ void MainWindow::spliter(string linha, string delimitador)
         ui->openGLWidget->mudancasTranslacao(vetores.at(0),vetores.at(1),vetores.at(2));
 }
 
-void MainWindow::on_cam01PushButton_clicked()
+void MainWindow::on_cam01PushButton_clicked() { ui->openGLWidget->mudaCamera(1); }
+void MainWindow::on_cam02PushButton_clicked() { ui->openGLWidget->mudaCamera(2); }
+void MainWindow::on_resetCameraPushButton_clicked() { ui->openGLWidget->carregaCamera(); }
+
+void MainWindow::on_salvarCameraPushButton_clicked()
 {
-    ui->openGLWidget->mudaCamera();
+    ui->openGLWidget->salvaCamera();
 }
 
 void MainWindow::sair(){

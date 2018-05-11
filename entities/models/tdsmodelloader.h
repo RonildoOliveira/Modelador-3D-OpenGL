@@ -43,7 +43,7 @@ public:
     int tex_mode; // Texturing active ?
     Lib3dsFile *file;
 
-    TdsModelLoader(const char *name);
+    TdsModelLoader(const char *name, std::string filename);
     ~TdsModelLoader();
     void render_node(Lib3dsNode *node);
 

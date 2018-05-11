@@ -1,6 +1,8 @@
 #include "tdsmodelloader.h"
 
-TdsModelLoader::TdsModelLoader(const char *name) {
+TdsModelLoader::TdsModelLoader(const char *name, std::string filename) {
+    this->filename = filename;
+
     file=lib3ds_file_load(name);
 
     if (!file) {
@@ -193,8 +195,8 @@ void TdsModelLoader::render_node(Lib3dsNode *node)
                             glMaterialf(GL_FRONT, GL_SHININESS, pow(2, 10.0*mat->shininess));
                         }
                         else {
-                            static const Lib3dsRgba a={0.7, 0.7, 0.7, 1.0};
-                            static const Lib3dsRgba d={0.7, 0.7, 0.7, 1.0};
+                            static const Lib3dsRgba a={0.5, 0.5, 0.5, 1.0};
+                            static const Lib3dsRgba d={0.5, 0.5, 0.5, 1.0};
                             static const Lib3dsRgba s={1.0, 1.0, 1.0, 1.0};
                             glMaterialfv(GL_FRONT, GL_AMBIENT, a);
                             glMaterialfv(GL_FRONT, GL_DIFFUSE, d);
@@ -263,6 +265,8 @@ void TdsModelLoader::render_node(Lib3dsNode *node)
 
 void TdsModelLoader::desenha()
 {
+    glPushMatrix();
+
     //composicao de transformacoes
     glTranslated(this->getTX(),this->getTY(),this->getTZ());
 
@@ -289,6 +293,8 @@ void TdsModelLoader::desenha()
     for (Lib3dsNode *node = file->nodes; node!=0; node=node->next) {
         render_node(node);
     }
+
+    glPopMatrix();
 }
 
 float TdsModelLoader::getAX() { return this->ax; }
@@ -344,4 +350,4 @@ bool TdsModelLoader::isSelecionado() { return this->selecionado; }
 void TdsModelLoader::setEixo(bool eixo) { this->eixo = eixo; }
 bool TdsModelLoader::isEixo() { return this->eixo; }
 
-std::string TdsModelLoader::getNome() { return this->nome; }
+std::string TdsModelLoader::getNome() { return this->filename; }

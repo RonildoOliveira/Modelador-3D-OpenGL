@@ -302,6 +302,32 @@
       <string>Cam 02</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="resetCameraPushButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>71</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Reset</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="salvarCameraPushButton">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>60</y>
+       <width>51</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Salvar</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -350,8 +376,17 @@
      <addaction name="actionTorus"/>
      <addaction name="actionCube"/>
     </widget>
+    <widget class="QMenu" name="menu3DS">
+     <property name="title">
+      <string>3DS</string>
+     </property>
+     <addaction name="actionEsqueleto"/>
+     <addaction name="actionCachorro"/>
+     <addaction name="actionLobo"/>
+    </widget>
     <addaction name="menuOpen_GL"/>
     <addaction name="menuOBJ"/>
+    <addaction name="menu3DS"/>
    </widget>
    <addaction name="menuArquivo"/>
    <addaction name="menuAdicionar"/>
@@ -418,6 +453,21 @@
   <action name="actionCube">
    <property name="text">
     <string>Cube</string>
+   </property>
+  </action>
+  <action name="actionEsqueleto">
+   <property name="text">
+    <string>Esqueleto</string>
+   </property>
+  </action>
+  <action name="actionCachorro">
+   <property name="text">
+    <string>Cachorro</string>
+   </property>
+  </action>
+  <action name="actionLobo">
+   <property name="text">
+    <string>Lobo</string>
    </property>
   </action>
  </widget>

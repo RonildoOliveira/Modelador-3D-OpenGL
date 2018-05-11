@@ -38,6 +38,10 @@ public:
     void addMarioListaModelos();
     void addShelfListaModelos();
 
+    void addEsqueletoListaModelos();
+    void addCachorroListaModelos();
+    void addLoboListaModelos();
+
     void increaseCont();
     void decreaseCont();
 
@@ -49,13 +53,17 @@ public:
     void mudancasTranslacao(float x, float y, float z);
     void mudancasEscala(float x, float y, float z);
 
-    void mudaCamera();
+    void mudaCamera(int numeroCamera);
 
     void carregarEstado();
-    void carregarModelo3DOBJ(string caminho, string nome);
     void salvarEstado();
+    void carregarModelo3DOBJ(string caminho, string nome);
 
-    Camera* cam = new CameraDistante(19.5323,9.36482,24.4429,-0.0726667,0.927333,0,-0.162686,0.965604,-0.202832);
+    void carregaCamera();
+    void salvaCamera();
+
+    //Camera* cam = new CameraDistante(19.5323,9.36482,24.4429,-0.0726667,0.927333,0,-0.162686,0.965604,-0.202832);
+    Camera* cam = new CameraDistante(0,0,0, 0,0,0, 0,0,0);
     float savedCamera[9];
 
     bool islistaVazia();

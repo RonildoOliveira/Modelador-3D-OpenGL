@@ -12,6 +12,32 @@ TdsModelLoader::TdsModelLoader(const char *name, std::string filename) {
     lib3ds_file_eval(file,0);
 }
 
+TdsModelLoader::TdsModelLoader(std::__cxx11::string filename, std::string nomeModelo,
+        float tx, float ty, float tz, float ax, float ay, float az, float sx, float sy, float sz){
+    this->tx = tx;
+    this->ty = ty;
+    this->tz = tz;
+
+    this->ax = ax;
+    this->ay = ay;
+    this->az = az;
+
+    this->sx = sx;
+    this->sy = sy;
+    this->sz = sz;
+
+    this->filename = filename;
+    this->nome = nomeModelo;
+
+    file=lib3ds_file_load(filename.c_str());
+
+    if (!file) {
+      puts("3dsplayer: Error: Loading 3DS file failed.\n");
+      exit(1);
+    }
+    lib3ds_file_eval(file,0);
+}
+
 TdsModelLoader::~TdsModelLoader()
 {
     lib3ds_file_free(file);
@@ -350,4 +376,4 @@ bool TdsModelLoader::isSelecionado() { return this->selecionado; }
 void TdsModelLoader::setEixo(bool eixo) { this->eixo = eixo; }
 bool TdsModelLoader::isEixo() { return this->eixo; }
 
-std::string TdsModelLoader::getNome() { return this->filename; }
+std::string TdsModelLoader::getNome() { return this->nome; }

@@ -375,6 +375,7 @@
      <addaction name="actionTeapot"/>
      <addaction name="actionTorus"/>
      <addaction name="actionCube"/>
+     <addaction name="actionArvore"/>
     </widget>
     <widget class="QMenu" name="menu3DS">
      <property name="title">
@@ -419,10 +420,16 @@
    <property name="text">
     <string>Carregar Estado</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
   </action>
   <action name="actionSalvar_Estado">
    <property name="text">
     <string>Salvar Estado</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="actionKratos">
@@ -468,6 +475,11 @@
   <action name="actionLobo">
    <property name="text">
     <string>Lobo</string>
+   </property>
+  </action>
+  <action name="actionArvore">
+   <property name="text">
+    <string>Arvore</string>
    </property>
   </action>
  </widget>

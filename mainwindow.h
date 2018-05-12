@@ -34,6 +34,7 @@ private slots:
     void addTorus();
     void addTeapot();
     void addCube();
+    void actionArvore();
 
     void addKratos();
     void addMario();

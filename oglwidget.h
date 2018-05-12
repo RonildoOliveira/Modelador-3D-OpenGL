@@ -32,6 +32,7 @@ public:
     void addTorusListaModelos();
     void addTeapotListaModelos();
     void addCubeListaModelos();
+    void addArvoreListaModelos();
 
     void addKratosListaModelos();
     void addBoyListaModelos();
@@ -109,5 +110,6 @@ private:
 protected:
 
 };
+
 
 #endif // OGLWIDGET_H

@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionTorus, &QAction::triggered, this, &MainWindow::addTorus);
     connect(ui->actionTeapot, &QAction::triggered, this, &MainWindow::addTeapot);
     connect(ui->actionCube, &QAction::triggered, this, &MainWindow::addCube);
+    connect(ui->actionArvore, &QAction::triggered, this, &MainWindow::actionArvore);
 
     connect(ui->actionKratos, &QAction::triggered, this, &MainWindow::addKratos);
     connect(ui->actionMario, &QAction::triggered, this, &MainWindow::addMario);
@@ -118,6 +119,11 @@ void MainWindow::addTeapot(){
 void MainWindow::addCube()
 {
     ui->openGLWidget->addCubeListaModelos();
+}
+
+void MainWindow::actionArvore()
+{
+    ui->openGLWidget->addArvoreListaModelos();
 }
 
 void MainWindow::addKratos()

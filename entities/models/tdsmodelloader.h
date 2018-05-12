@@ -39,12 +39,16 @@ class TdsModelLoader : public Model
 {
 public:
     TdsModelLoader();
+    TdsModelLoader(const char *name, std::string filename);
+    TdsModelLoader(std::string param, std::string nomeModelo,
+            float tx, float ty, float tz,
+            float ax, float ay, float az,
+            float sx, float sy, float sz);
+    ~TdsModelLoader();
+
     Player_texture *pt;
     int tex_mode; // Texturing active ?
     Lib3dsFile *file;
-
-    TdsModelLoader(const char *name, std::string filename);
-    ~TdsModelLoader();
     void render_node(Lib3dsNode *node);
 
    void desenha() override;

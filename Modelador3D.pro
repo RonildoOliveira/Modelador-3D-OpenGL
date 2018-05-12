@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     entities/teapot.cpp \
     entities/models/objmodelloader.cpp \
     entities/cube.cpp \
-    entities/models/tdsmodelloader.cpp
+    entities/models/tdsmodelloader.cpp \
+    entities/tree.cpp
 
 SOURCES += mainwindow.cpp \
     bib/Camera.cpp \
@@ -44,7 +45,8 @@ HEADERS  += mainwindow.h \
     entities/teapot.h \
     entities/models/objmodelloader.h \
     entities/cube.h \
-    entities/models/tdsmodelloader.h
+    entities/models/tdsmodelloader.h \
+    entities/tree.h
 
 FORMS    += mainwindow.ui
 

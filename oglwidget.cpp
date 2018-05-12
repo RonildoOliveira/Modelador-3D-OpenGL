@@ -11,10 +11,10 @@
 #include "entities/torus.h"
 #include "entities/teapot.h"
 #include "entities/cube.h"
+#include "entities/tree.h"
 
 #include "entities/models/objmodelloader.h"
 #include "entities/models/tdsmodelloader.h"
-
 
 OGLWidget::OGLWidget(QWidget *parent)
     : QGLWidget(parent)
@@ -41,28 +41,28 @@ void OGLWidget::initializeGL()
 
     glEnable(GL_DEPTH_TEST);
 
-//    //definindo uma luz
-        glEnable(GL_LIGHT0);
+    //    //definindo uma luz
+    glEnable(GL_LIGHT0);
 
-        const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
-        const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
-        const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-        const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
+    const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
+    const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
+    const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
 
-        const GLfloat mat_ambient[]    = { 0.7f, 0.7f, 0.7f, 1.0f };
-        const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
-        const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
-        const GLfloat high_shininess[] = { 100.0f };
+    const GLfloat mat_ambient[]    = { 0.7f, 0.7f, 0.7f, 1.0f };
+    const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
+    const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
+    const GLfloat high_shininess[] = { 100.0f };
 
-        glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
-        glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
-        glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-        glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
-        glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
-        glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
-        glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
-        glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+    glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 }
 
 void OGLWidget::paintGL()
@@ -71,11 +71,11 @@ void OGLWidget::paintGL()
 
     //sistema global
     glPushMatrix();
-        //desenhando eixos do sistema de coordenadas global
-        Desenha::drawEixos( 0.5 );
-        //chao
-        glColor3d(0.3,0.3,0.3);
-        Desenha::drawGrid( 15, 0, 15, 1 );
+    //desenhando eixos do sistema de coordenadas global
+    Desenha::drawEixos( 0.5 );
+    //chao
+    glColor3d(0.3,0.3,0.3);
+    Desenha::drawGrid( 15, 0, 15, 1 );
     glPopMatrix();
 
     if(listaModelos.size() > 0){
@@ -120,69 +120,69 @@ void OGLWidget::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key())
     {
-        case Qt::Key_Right:{
-            if(!listaModelos.empty()){
-                if(cont == -1){
-                    cont++;
-                    (listaModelos[cont])->setSelecionado(true);
-                }else if(cont >= 0 && (cont < (listaModelos.size() - 1))){
-                    (listaModelos[cont])->setSelecionado(false);
-                    cont++;
-                    (listaModelos[cont])->setSelecionado(true);
-                }else{
-                    (listaModelos[cont])->setSelecionado(false);
-                    cont = -1;
-                }
+    case Qt::Key_Right:{
+        if(!listaModelos.empty()){
+            if(cont == -1){
+                cont++;
+                (listaModelos[cont])->setSelecionado(true);
+            }else if(cont >= 0 && (cont < (listaModelos.size() - 1))){
+                (listaModelos[cont])->setSelecionado(false);
+                cont++;
+                (listaModelos[cont])->setSelecionado(true);
+            }else{
+                (listaModelos[cont])->setSelecionado(false);
+                cont = -1;
+            }
+        }
+    }
+        break;
+
+    case Qt::Key_E:{
+        if(!listaModelos.empty()){
+            if((listaModelos[cont])->isSelecionado()){
+                (listaModelos[cont])->setEixo(!(listaModelos[cont])->isEixo());
+            }
+        }
+    }
+        break;
+
+    case Qt::Key_Escape:
+    case Qt::Key_Return:
+    case Qt::Key_Q:
+        exit(0);
+        break;
+
+    case Qt::Key_T:
+        trans_obj = !trans_obj;
+        break;
+
+    case Qt::Key_Plus:
+    case Qt::Key_M:
+        if(!listaModelos.empty()){
+            if (listaModelos.at(cont)->getSlices() > 3 && listaModelos.at(cont)->getStacks() > 3)
+            {
+                listaModelos.at(cont)->addSlices();
+                listaModelos.at(cont)->addStacks();
             }
         }
         break;
 
-        case Qt::Key_E:{
-            if(!listaModelos.empty()){
-                if((listaModelos[cont])->isSelecionado()){
-                    (listaModelos[cont])->setEixo(!(listaModelos[cont])->isEixo());
-                }
+    case Qt::Key_Minus:
+    case Qt::Key_N:
+        if(!listaModelos.empty()){
+            if (listaModelos.at(cont)->getSlices() > 3 && listaModelos.at(cont)->getStacks() > 3)
+            {
+                listaModelos.at(cont)->decSlices();
+                listaModelos.at(cont)->decStacks();
             }
         }
         break;
 
-        case Qt::Key_Escape:
-        case Qt::Key_Return:
-        case Qt::Key_Q:
-            exit(0);
-            break;
-
-        case Qt::Key_T:
-            trans_obj = !trans_obj;
-            break;
-
-        case Qt::Key_Plus:
-        case Qt::Key_M:
-            if(!listaModelos.empty()){
-                if (listaModelos.at(cont)->getSlices() > 3 && listaModelos.at(cont)->getStacks() > 3)
-                {
-                    listaModelos.at(cont)->addSlices();
-                    listaModelos.at(cont)->addStacks();
-                }
-            }
-            break;
-
-        case Qt::Key_Minus:
-        case Qt::Key_N:
-            if(!listaModelos.empty()){
-                if (listaModelos.at(cont)->getSlices() > 3 && listaModelos.at(cont)->getStacks() > 3)
-                {
-                    listaModelos.at(cont)->decSlices();
-                    listaModelos.at(cont)->decStacks();
-                }
-            }
-            break;
-
-        case Qt::Key_R:
-            if(!listaModelos.empty()){
-                listaModelos.erase (listaModelos.begin()+cont);
-            }
-            break;
+    case Qt::Key_R:
+        if(!listaModelos.empty()){
+            listaModelos.erase (listaModelos.begin()+cont);
+        }
+        break;
     }
 }
 
@@ -190,48 +190,65 @@ void OGLWidget::mousePressEvent(QMouseEvent *event) { lastPos = event->pos(); }
 
 void OGLWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    float fator = 100.0;
+
 
     int x = event->x();
     int y = event->y();
 
-    int lx = lastPos.x();
-    int ly = lastPos.y();
+    int last_x = lastPos.x();
+    int last_y = lastPos.y();
 
-
-    if(!listaModelos.empty()){
-        if (event->buttons() & Qt::LeftButton) {
-            listaModelos.at(cont)->addAX(0.1*(y - ly));
-            listaModelos.at(cont)->addAY(0.1*(x - lx));
-        } else if (event->buttons() & Qt::RightButton) {
-            listaModelos.at(cont)->addTX((x - lx)/fator);
-            listaModelos.at(cont)->addTY(-(y - ly)/fator);
-        }
-
-        else if (event->buttons() & Qt::MiddleButton) {
-
-                listaModelos.at(cont)->addTZ((y - ly)/fator);
-
-                listaModelos.at(cont)->addAZ(-(x - lx)/fator);
-
-        }
-    }
 
     //TODO AMBIENTE
-    fator = 100.0;
-    if (event->buttons() & Qt::RightButton && event->buttons() & Qt::MiddleButton) {
-            if (!trans_obj) {
-                cam->translatex(x,lx);
-                cam->translatey(y,ly);
-            }
-
-        }
-
-    if (event->buttons() & Qt::LeftButton && event->buttons() & Qt::RightButton) {
+    float fator = 10.0;
+    if (event->buttons() & Qt::LeftButton) {
         if (!trans_obj) {
-            cam->zoom(y,ly);
+            cam->rotatex(y,last_y);
+            cam->rotatey(x,last_x);
+        } else {
+            //ax += (y - last_y)/fator;
+            //ay += (x - last_x)/fator;
         }
     }
+
+    fator = 100.0;
+    if (event->buttons() & Qt::RightButton) {
+        if (!trans_obj) {
+            cam->translatex(x,last_x);
+            cam->translatey(y,last_y);
+        } else {
+            //ax += (y - last_y)/fator;
+            //ay += (x - last_x)/fator;
+        }
+    }
+    fator = 100.0;
+    if (event->buttons() & Qt::RightButton && !event->buttons() & Qt::MiddleButton) {
+        if (!trans_obj) {
+            cam->translatex(x,last_x);
+            cam->translatey(y,last_y);
+        } else {
+            //tx += (x - last_x)/fator;
+            //ty += -(y - last_y)/fator;
+        }
+    }
+    if (event->buttons() & Qt::LeftButton && event->buttons() & Qt::RightButton) {
+        if (!trans_obj) {
+            cam->zoom(y,last_y);
+        } else {
+            //tz += (y - last_y)/fator;
+            //fator = 10.0;
+            //az += -(x - last_x)/fator;
+        }
+    }
+    fator = 100.0;
+    if (event->buttons() & Qt::MiddleButton) {
+        if (!trans_obj) {
+            cam->zoom(y,last_y);
+        }
+    }
+
+    last_x = x;
+    last_y = y;
 
     lastPos = event->pos();
 }
@@ -239,6 +256,7 @@ void OGLWidget::mouseMoveEvent(QMouseEvent *event)
 void OGLWidget::addTorusListaModelos() { this->listaModelos.push_back(new Torus()); }
 void OGLWidget::addTeapotListaModelos() { this->listaModelos.push_back(new Teapot()); }
 void OGLWidget::addCubeListaModelos() { this->listaModelos.push_back(new Cube()); }
+void OGLWidget::addArvoreListaModelos(){ this->listaModelos.push_back(new Tree()); }
 
 void OGLWidget::addKratosListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Kratos.obj", "Kratos")); }
 void OGLWidget::addBoyListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Boy.obj", "Boy")); }
@@ -369,6 +387,15 @@ void OGLWidget::carregarEstado(){
             listaModelos.push_back(new Cube(tx,ty,tz, ax,ay,az, sx,sy,sz));
         }
 
+        else if(nomeModelo == "Arvore"){
+            file >> tx >> ty >> tz;
+            file >> ax >> ay >> az;
+            file >> sx >> sy >> sz;
+
+            listaModelos.push_back(new Tree(tx,ty,tz, ax,ay,az, sx,sy,sz));
+        }
+
+
         else if(nomeModelo == "Kratos" || nomeModelo == "Mario" || nomeModelo == "Boy" || nomeModelo == "Shelf"){
             string diretorio = "../Modelador3D/data/obj/";
             string extensao = ".obj";
@@ -392,7 +419,7 @@ void OGLWidget::carregarEstado(){
 
             string param = diretorio+nomeModelo+extensao;
 
-            listaModelos.push_back(new ObjModelLoader(param, nomeModelo, tx,ty,tz, ax,ay,az, sx,sy,sz));
+            listaModelos.push_back(new TdsModelLoader(param, nomeModelo, tx,ty,tz, ax,ay,az, sx,sy,sz));
         }
 
     }

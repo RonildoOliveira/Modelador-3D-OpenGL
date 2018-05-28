@@ -433,6 +433,12 @@ void OGLWidget::carregarModelo3DOBJ(string caminho, string nome)
     listaModelos.push_back(new ObjModelLoader(caminho, nome));
 }
 
+void OGLWidget::carregarModelo3D3DS(string caminho, string nome)
+{
+    const char * c = caminho.c_str();
+    listaModelos.push_back(new TdsModelLoader(c, nome));
+}
+
 void OGLWidget::carregaCamera()
 {
     std::ifstream file("../Modelador3D/camera.txt");

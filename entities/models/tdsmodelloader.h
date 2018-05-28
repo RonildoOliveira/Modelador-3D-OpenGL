@@ -40,6 +40,7 @@ class TdsModelLoader : public Model
 public:
     TdsModelLoader();
     TdsModelLoader(const char *name, std::string filename);
+    TdsModelLoader(std::string name, std::__cxx11::string filename);
     TdsModelLoader(std::string param, std::string nomeModelo,
             float tx, float ty, float tz,
             float ax, float ay, float az,

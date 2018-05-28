@@ -59,6 +59,7 @@ public:
     void carregarEstado();
     void salvarEstado();
     void carregarModelo3DOBJ(string caminho, string nome);
+    void carregarModelo3D3DS(string caminho, string nome);
 
     void carregaCamera();
     void salvaCamera();

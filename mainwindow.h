@@ -29,6 +29,7 @@ private slots:
     void carregarEstado();
     void salvarEstado();
     void carregarOBJ();
+    void carregar3DS();
     void sair();
 
     void addTorus();

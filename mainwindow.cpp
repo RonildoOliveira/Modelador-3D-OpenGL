@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionSalvar_Estado,&QAction::triggered, this, &MainWindow::salvarEstado);
     connect(ui->actionSair, &QAction::triggered, this, &MainWindow::sair);
     connect(ui->actionCarregarOBJ, &QAction::triggered, this, &MainWindow::carregarOBJ);
+    connect(ui->actionCarregar3DS, &QAction::triggered, this, &MainWindow::carregar3DS);
 
     connect(ui->actionTorus, &QAction::triggered, this, &MainWindow::addTorus);
     connect(ui->actionTeapot, &QAction::triggered, this, &MainWindow::addTeapot);
@@ -90,11 +91,20 @@ void MainWindow::salvarEstado()
 
 void MainWindow::carregarOBJ()
 {
-    QString filename = QFileDialog::getOpenFileName(this, tr("Carregar Modelo 3D"), "/home/", tr("Modelos OBJ (*.obj)"));
+    QString filename = QFileDialog::getOpenFileName(this, tr("Carregar Modelo 3D"), "/home/", tr("Wavefront (*.obj)"));
     std::string utf8_text = filename.toUtf8().constData();
 
     ui->openGLWidget->carregarModelo3DOBJ(utf8_text,"Novo");
-    std::cout << utf8_text << "-->";
+    //std::cout << utf8_text << "-->";
+}
+
+void MainWindow::carregar3DS()
+{
+    QString filename = QFileDialog::getOpenFileName(this, tr("Carregar Modelo 3D"), "/home/", tr("3D Studio (*.3ds)"));
+    std::string utf8_text = filename.toUtf8().constData();
+
+    ui->openGLWidget->carregarModelo3D3DS(utf8_text,"Novo3DS");
+    //std::cout << utf8_text << "-->";
 }
 
 
@@ -166,14 +176,23 @@ void MainWindow::xValueReceived(int x)
     float fator = 10.0;
 
     if(!ui->openGLWidget->islistaVazia()){
-        if(ui->tRadioButton->isChecked())
+        if(ui->tRadioButton->isChecked()){
+            ui->eixoXSlider->setMinimum(-800);
+            ui->eixoXSlider->setMaximum(800);
             ui->openGLWidget->mudancasEixoX('T', (x / (fator*10)));
+        }
 
-        if(ui->aRadioButton->isChecked())
+        if(ui->aRadioButton->isChecked()){
+            ui->eixoXSlider->setMinimum(0);
+            ui->eixoXSlider->setMaximum(360);
             ui->openGLWidget->mudancasEixoX('A', (x));
+        }
 
-        if(ui->sRadioButton->isChecked())
-            ui->openGLWidget->mudancasEixoX('S', (x / (fator*10)));
+        if(ui->sRadioButton->isChecked()){
+            ui->eixoXSlider->setMinimum(0);
+            ui->eixoXSlider->setMaximum(30);
+            ui->openGLWidget->mudancasEixoX('S', x);
+        }
     }
 }
 
@@ -181,28 +200,46 @@ void MainWindow::yValueReceived(int y)
 {
     float fator = 10.0;
 
-    if(ui->tRadioButton->isChecked())
-        ui->openGLWidget->mudancasEixoY('T', (y / (fator*10)));
+    if(ui->tRadioButton->isChecked()){
+        ui->eixoYSlider->setMinimum(-800);
+        ui->eixoYSlider->setMaximum(800);
+        ui->openGLWidget->mudancasEixoY('T', (y / (fator)));
+    }
 
-    if(ui->aRadioButton->isChecked())
+    if(ui->aRadioButton->isChecked()){
+        ui->eixoYSlider->setMinimum(0);
+        ui->eixoYSlider->setMaximum(360);
         ui->openGLWidget->mudancasEixoY('A', (y));
+    }
 
-    if(ui->sRadioButton->isChecked())
-        ui->openGLWidget->mudancasEixoY('S', (y / (fator*10)));
+    if(ui->sRadioButton->isChecked()){
+        ui->eixoYSlider->setMinimum(0);
+        ui->eixoYSlider->setMaximum(30);
+        ui->openGLWidget->mudancasEixoY('S', y);
+    }
 }
 
 void MainWindow::zValueReceived(int z)
 {
     float fator = 10.0;
 
-    if(ui->tRadioButton->isChecked())
+    if(ui->tRadioButton->isChecked()){
+        ui->eixoZSlider->setMinimum(-800);
+        ui->eixoZSlider->setMaximum(800);
         ui->openGLWidget->mudancasEixoZ('T', (z / (fator*10)));
+    }
 
-    if(ui->aRadioButton->isChecked())
+    if(ui->aRadioButton->isChecked()){
+        ui->eixoZSlider->setMinimum(0);
+        ui->eixoZSlider->setMaximum(360);
         ui->openGLWidget->mudancasEixoZ('A', (z));
+    }
 
-    if(ui->sRadioButton->isChecked())
-        ui->openGLWidget->mudancasEixoZ('S', (z / (fator*10)));
+    if(ui->sRadioButton->isChecked()){
+        ui->eixoZSlider->setMinimum(0);
+        ui->eixoZSlider->setMaximum(30);
+        ui->openGLWidget->mudancasEixoZ('S', z);
+    }
 }
 
 void MainWindow::spliter(string linha, string delimitador)

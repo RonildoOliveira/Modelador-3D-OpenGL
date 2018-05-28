@@ -348,6 +348,7 @@
       <string>Carregar Modelo 3D</string>
      </property>
      <addaction name="actionCarregarOBJ"/>
+     <addaction name="actionCarregar3DS"/>
     </widget>
     <addaction name="actionCarregar_Estado"/>
     <addaction name="actionSalvar_Estado"/>
@@ -480,6 +481,11 @@
   <action name="actionArvore">
    <property name="text">
     <string>Arvore</string>
+   </property>
+  </action>
+  <action name="actionCarregar3DS">
+   <property name="text">
+    <string>3DS</string>
    </property>
   </action>
  </widget>

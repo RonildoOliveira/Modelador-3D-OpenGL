@@ -22,7 +22,10 @@ SOURCES += main.cpp \
     entities/models/objmodelloader.cpp \
     entities/cube.cpp \
     entities/models/tdsmodelloader.cpp \
-    entities/tree.cpp
+    entities/tree.cpp \
+    bib/GUI.cpp \
+    bib/Extra.cpp \
+    entities/luz.cpp
 
 SOURCES += mainwindow.cpp \
     bib/Camera.cpp \
@@ -46,7 +49,10 @@ HEADERS  += mainwindow.h \
     entities/models/objmodelloader.h \
     entities/cube.h \
     entities/models/tdsmodelloader.h \
-    entities/tree.h
+    entities/tree.h \
+    bib/GUI.h \
+    bib/Extra.h \
+    entities/luz.h
 
 FORMS    += mainwindow.ui
 

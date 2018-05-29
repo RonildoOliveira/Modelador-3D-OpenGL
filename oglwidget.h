@@ -34,6 +34,8 @@ public:
     void addCubeListaModelos();
     void addArvoreListaModelos();
 
+    void addLuzListaModelos();
+
     void addKratosListaModelos();
     void addBoyListaModelos();
     void addMarioListaModelos();

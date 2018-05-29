@@ -32,6 +32,8 @@ private slots:
     void carregar3DS();
     void sair();
 
+    void addLuz();
+
     void addTorus();
     void addTeapot();
     void addCube();

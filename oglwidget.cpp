@@ -6,15 +6,22 @@
 #include <vector>
 
 #include "oglwidget.h"
+#include "bib/GUI.h"
 
 #include "entities/model.h"
 #include "entities/torus.h"
 #include "entities/teapot.h"
 #include "entities/cube.h"
 #include "entities/tree.h"
+#include "entities/luz.h"
 
 #include "entities/models/objmodelloader.h"
 #include "entities/models/tdsmodelloader.h"
+
+//Definir posição da luz
+//GLfloat posicao_luz[] = {5.1f,5.1f,5.1f,5.1f};
+//float trans_obj = false;
+//float trans_luz = false;
 
 OGLWidget::OGLWidget(QWidget *parent)
     : QGLWidget(parent)
@@ -69,20 +76,37 @@ void OGLWidget::paintGL()
 {
     displayInit();
 
-    //sistema global
-    glPushMatrix();
-    //desenhando eixos do sistema de coordenadas global
-    Desenha::drawEixos( 0.5 );
-    //chao
-    glColor3d(0.3,0.3,0.3);
-    Desenha::drawGrid( 15, 0, 15, 1 );
-    glPopMatrix();
+        //sistema global
+        glPushMatrix();
 
-    if(listaModelos.size() > 0){
-        for (int index = 0; index < listaModelos.size(); ++index) {
-            listaModelos.at(index)->desenha();
+        //desenhando eixos do sistema de coordenadas global
+        Desenha::drawEixos( 0.5 );
+
+        //chao
+        glColor3d(0.3,0.3,0.3);
+            Desenha::drawGrid( 15, 0, 15, 1 );
+        glPopMatrix();
+
+        //posicao da luz
+        /*
+        glPushMatrix();
+            glColor3f(1,1,1);
+            glTranslatef(posicao_luz[0],posicao_luz[1],posicao_luz[2]);
+            gluSphere(gluNewQuadric(),0.2, 15, 15);
+            glutGUI::trans_luz = trans_luz;
+            GUI::setLight(0,0,0,0,false,false);
+            //GUI::setLight(0,posicao_luz[0],posicao_luz[1],posicao_luz[2],false,false);
+            glLightfv(GL_LIGHT0, GL_POSITION, posicao_luz);
+        glPopMatrix();
+        */
+
+        if(listaModelos.size() > 0){
+            for (unsigned int index = 0; index < listaModelos.size(); ++index) {
+                listaModelos.at(index)->desenha();
+            }
         }
-    }
+
+        glPopMatrix();
 
     displayEnd();
 }
@@ -125,7 +149,7 @@ void OGLWidget::keyPressEvent(QKeyEvent *event)
             if(cont == -1){
                 cont++;
                 (listaModelos[cont])->setSelecionado(true);
-            }else if(cont >= 0 && (cont < (listaModelos.size() - 1))){
+            }else if((cont >= 0) && (cont < (listaModelos.size() - 1))){
                 (listaModelos[cont])->setSelecionado(false);
                 cont++;
                 (listaModelos[cont])->setSelecionado(true);
@@ -258,6 +282,8 @@ void OGLWidget::addTeapotListaModelos() { this->listaModelos.push_back(new Teapo
 void OGLWidget::addCubeListaModelos() { this->listaModelos.push_back(new Cube()); }
 void OGLWidget::addArvoreListaModelos(){ this->listaModelos.push_back(new Tree()); }
 
+void OGLWidget::addLuzListaModelos() { this->listaModelos.push_back(new Luz()); }
+
 void OGLWidget::addKratosListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Kratos.obj", "Kratos")); }
 void OGLWidget::addBoyListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Boy.obj", "Boy")); }
 void OGLWidget::addMarioListaModelos() { this->listaModelos.push_back(new ObjModelLoader("../Modelador3D/data/obj/Mario.obj", "Mario")); }
@@ -352,10 +378,6 @@ void OGLWidget::carregarEstado(){
     }
 
     string nomeModelo;
-    float innerRadius = 0.0;
-    float outterRadius = 0;
-    int slices = 0;
-    int stacks = 0;
     float tx, ty, tz = 0;
     float ax, ay, az = 0;
     float sx, sy, sz = 0;
@@ -395,6 +417,13 @@ void OGLWidget::carregarEstado(){
             listaModelos.push_back(new Tree(tx,ty,tz, ax,ay,az, sx,sy,sz));
         }
 
+        else if(nomeModelo == "Luz"){
+            file >> tx >> ty >> tz;
+            file >> ax >> ay >> az;
+            file >> sx >> sy >> sz;
+
+            listaModelos.push_back(new Luz(tx,ty,tz, ax,ay,az, sx,sy,sz));
+        }
 
         else if(nomeModelo == "Kratos" || nomeModelo == "Mario" || nomeModelo == "Boy" || nomeModelo == "Shelf"){
             string diretorio = "../Modelador3D/data/obj/";

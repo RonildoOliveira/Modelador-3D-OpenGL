@@ -389,6 +389,8 @@
     <addaction name="menuOpen_GL"/>
     <addaction name="menuOBJ"/>
     <addaction name="menu3DS"/>
+    <addaction name="separator"/>
+    <addaction name="actionLuz"/>
    </widget>
    <addaction name="menuArquivo"/>
    <addaction name="menuAdicionar"/>
@@ -486,6 +488,11 @@
   <action name="actionCarregar3DS">
    <property name="text">
     <string>3DS</string>
+   </property>
+  </action>
+  <action name="actionLuz">
+   <property name="text">
+    <string>Luz</string>
    </property>
   </action>
  </widget>

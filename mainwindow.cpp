@@ -26,6 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionCube, &QAction::triggered, this, &MainWindow::addCube);
     connect(ui->actionArvore, &QAction::triggered, this, &MainWindow::actionArvore);
 
+    connect(ui->actionLuz, &QAction::triggered, this, &MainWindow::addLuz);
+
     connect(ui->actionKratos, &QAction::triggered, this, &MainWindow::addKratos);
     connect(ui->actionMario, &QAction::triggered, this, &MainWindow::addMario);
     connect(ui->actionBoy, &QAction::triggered, this, &MainWindow::addBoy);
@@ -120,6 +122,11 @@ void MainWindow::addTorus(){
     msgBox.setText("The document has been modified.");
     msgBox.exec();
     */
+}
+
+void MainWindow::addLuz()
+{
+    ui->openGLWidget->addLuzListaModelos();
 }
 
 void MainWindow::addTeapot(){
@@ -284,4 +291,5 @@ void MainWindow::on_salvarCameraPushButton_clicked()
 void MainWindow::sair(){
     exit(0);
 }
+
 

@@ -1,24 +1,20 @@
-#ifndef TORUS_H
-#define TORUS_H
+#ifndef LUZ_H
+#define LUZ_H
 
 #include <GL/glut.h>
 #include <bib/CameraDistante.h>
 #include <bib/Desenha.h>
 #include <entities/model.h>
 
-class Torus: public Model
+#include <bib/GUI.h>
+
+class Luz : public Model
 {
 public:
-    Torus();
-    Torus(float innerRadius, float outterRadius,
-          int slices, int stacks,
-          float tx, float ty, float tz,
-          float ax, float ay, float az,
-          float sx, float sy, float sz);
-
-    Torus(float tx, float ty, float tz,
-          float ax, float ay, float az,
-          float sx, float sy, float sz);
+    Luz();
+    Luz(float tx, float ty, float tz,
+        float ax, float ay, float az,
+        float sx, float sy, float sz);
 
     void desenha() override;
 
@@ -81,7 +77,7 @@ public:
     std::string getNome() override;
 
 private:
-    std::string nome = "Torus";
+    std::string nome = "Luz";
 
     float innerRadius = 0.2;
     float outterRadius = 0.8;
@@ -89,11 +85,12 @@ private:
     int slices = 15;
     int stacks = 15;
 
-    float trans_obj = false;
+    float tx = 5.0;
+    float ty = 5.0;
+    float tz = 5.0;
 
-    float tx = 0.0;
-    float ty = 0.0;
-    float tz = 0.0;
+    float trans_obj = false;
+    float trans_luz = false;
 
     float ax = 0.0;
     float ay = 0.0;
@@ -109,4 +106,4 @@ private:
     bool eixo = true;
 };
 
-#endif // TORUS_H
+#endif // LUZ_H

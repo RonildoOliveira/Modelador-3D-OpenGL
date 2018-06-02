@@ -72,6 +72,9 @@ public:
     void setSelecionado(bool selecionado) override;
     bool isSelecionado() override;
 
+    void setSombra(bool sombra) override;
+    bool isSombra() override;
+
     void setEixo(bool eixo) override;
     bool isEixo() override;
 
@@ -92,7 +95,8 @@ private:
     float sz = 0.3;
 
     bool selecionado = false;
-    bool eixo = true;
+    bool sombra = false;
+    bool eixo = false;
 
     std::string filename = "";
     std::vector<std::vector<float>*> *vertices = new std::vector<std::vector<float>*>;

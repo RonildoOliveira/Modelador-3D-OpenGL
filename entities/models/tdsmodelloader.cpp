@@ -312,8 +312,11 @@ void TdsModelLoader::desenha()
     if(isSelecionado()){
         glColor3f(0.22,1.0,0.07);
     }
+    else if (isSombra()){
+        glColor3f(0.0,0.0,0.0);
+    }
     else{
-        glColor3f(0.5,0.5,0.5);
+        glColor3f(0.9,0.1,0.9);
     }
 
     for (Lib3dsNode *node = file->nodes; node!=0; node=node->next) {
@@ -372,6 +375,9 @@ int TdsModelLoader::getStacks(){}
 
 void TdsModelLoader::setSelecionado(bool selecionado) { this->selecionado = selecionado; }
 bool TdsModelLoader::isSelecionado() { return this->selecionado; }
+
+void TdsModelLoader::setSombra(bool sombra) { this->sombra = sombra; }
+bool TdsModelLoader::isSombra() { return this->sombra; }
 
 void TdsModelLoader::setEixo(bool eixo) { this->eixo = eixo; }
 bool TdsModelLoader::isEixo() { return this->eixo; }

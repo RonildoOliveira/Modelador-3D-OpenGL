@@ -20,8 +20,15 @@
 
 //Definir posição da luz
 //GLfloat posicao_luz[] = {5.1f,5.1f,5.1f,5.1f};
-//float trans_obj = false;
-//float trans_luz = false;
+float trans_obj = false;
+float trans_luz = false;
+
+bool isPerspective = false;
+bool isOrtogonal = false;
+
+int indice_luz = -1;
+
+Camera* cam2 = new CameraDistante(-3,2,-5, 0,0,0, 0,1,0);
 
 OGLWidget::OGLWidget(QWidget *parent)
     : QGLWidget(parent)
@@ -33,6 +40,7 @@ OGLWidget::OGLWidget(QWidget *parent)
 void OGLWidget::initializeGL()
 {
     carregaCamera();
+    iniciaLuz();
 
     //glClearColor(1,1,1,1);
     glClearColor(0,0,0,1);
@@ -72,43 +80,267 @@ void OGLWidget::initializeGL()
     glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 }
 
+void transformacao_camera_2_global(Vetor3D e, Vetor3D c, Vetor3D u, bool mostra_matriz = false){
+    //matriz de transformacao
+    float transform[16] = {
+        1.0,    0.0,    0.0,    0.0,
+        0.0,    1.0,    0.0,    0.0,
+        0.0,    0.0,    1.0,    0.0,
+        0.0,    0.0,    0.0,    1.0
+    };
+    glMultTransposeMatrixf( transform );
+}
+
 void OGLWidget::paintGL()
 {
-    displayInit();
-
-        //sistema global
-        glPushMatrix();
-
+    if(isPerspective){
+        displayPerspective();
+    }
+    else if(isOrtogonal){
+        displayOrtho();
+    }else{
+        displayInit();
+    }
+    //sistema global
+    glPushMatrix();
         //desenhando eixos do sistema de coordenadas global
         Desenha::drawEixos( 0.5 );
-
         //chao
         glColor3d(0.3,0.3,0.3);
-            Desenha::drawGrid( 15, 0, 15, 1 );
-        glPopMatrix();
+        Desenha::drawGrid( 15, 0, 15, 1 );
+    glPopMatrix();
 
+
+    float sombreamentoGlobal[16] = {
+        listaModelos.at(0)->getTY(), -listaModelos.at(0)->getTX(),                0.01,                0.0,
+        0.0,            0.01,                 0.0,                0.0,
+        0.0, -listaModelos.at(0)->getTZ(),      listaModelos.at(0)->getTY(),                0.0,
+        0.0, -listaModelos.at(0)->getTY(),                 0.0,      listaModelos.at(0)->getTY()
+    };
+
+    float k_x = -9.95;
+    float sombra_x[16] = {
+        -k_x,                    0.0,                    0.0,  k_x * listaModelos.at(0)->getTX(),
+        -listaModelos.at(0)->getTY(), (listaModelos.at(0)->getTX() - k_x),                    0.0,  k_x * listaModelos.at(0)->getTY(),
+        -listaModelos.at(0)->getTZ(),                    0.0, (listaModelos.at(0)->getTX() - k_x),  k_x * listaModelos.at(0)->getTZ(),
+        -1.0,                    0.0,                    0.0,        listaModelos.at(0)->getTX()
+    };
+
+    float k_y = 0.05;
+    float sombra_y[16] = {
+        listaModelos.at(0)->getTY() - k_y,   -listaModelos.at(0)->getTX(),                   0.0,   k_y * listaModelos.at(0)->getTX(),
+        0.0,              -k_y,                   0.0,   k_y * listaModelos.at(0)->getTY(),
+        0.0,   -listaModelos.at(0)->getTZ(),  listaModelos.at(0)->getTY() - k_y,   k_y * listaModelos.at(0)->getTZ(),
+        0.0,   -listaModelos.at(0)->getTZ(),                   0.0,         listaModelos.at(0)->getTY()
+    };
+
+    float k_z = -9.95;
+
+    float sombra_z[16] = {
+        listaModelos.at(0)->getTZ() - k_z,                  0.0,   -listaModelos.at(0)->getTX(),  k_z * listaModelos.at(0)->getTX(),
+        0.0, listaModelos.at(0)->getTZ() - k_z,   -listaModelos.at(0)->getTY(),  k_z * listaModelos.at(0)->getTY(),
+        0.0,                  0.0,              -k_z,  k_z * listaModelos.at(0)->getTZ(),
+        0.0,                  0.0,              -1.0,        listaModelos.at(0)->getTZ()
+    };
+
+    //sombras
+    glPushMatrix();
         //posicao da luz
-        /*
-        glPushMatrix();
-            glColor3f(1,1,1);
-            glTranslatef(posicao_luz[0],posicao_luz[1],posicao_luz[2]);
-            gluSphere(gluNewQuadric(),0.2, 15, 15);
-            glutGUI::trans_luz = trans_luz;
-            GUI::setLight(0,0,0,0,false,false);
-            //GUI::setLight(0,posicao_luz[0],posicao_luz[1],posicao_luz[2],false,false);
-            glLightfv(GL_LIGHT0, GL_POSITION, posicao_luz);
-        glPopMatrix();
-        */
+        glutGUI::trans_luz = trans_luz;
+        GUI::setLight(0,
+                      listaModelos.at(0)->getTX(),
+                      listaModelos.at(0)->getTY(),
+                      listaModelos.at(0)->getTZ(),
+                      false,false);
+        //GUI::setLight(0,posicao_luz[0],posicao_luz[1],posicao_luz[2],false,false);
+        GLfloat posicao_luz[] = {
+                listaModelos.at(0)->getTX(), listaModelos.at(0)->getTY(),
+                listaModelos.at(0)->getTZ(), listaModelos.at(0)->getTZ()
+                };
+        glLightfv(GL_LIGHT0, GL_POSITION, posicao_luz);
+    glPopMatrix();
 
+    glPushMatrix();
+        //posicao da luz
+        glutGUI::trans_luz = trans_luz;
+        GUI::setLight(0,
+                      listaModelos.at(0)->getTX(),
+                      listaModelos.at(0)->getTY(),
+                      listaModelos.at(0)->getTZ(),
+                      false,false);
+        //GUI::setLight(0,posicao_luz[0],posicao_luz[1],posicao_luz[2],false,false);
+        GLfloat p_luz[] = {
+                listaModelos.at(0)->getTX(), listaModelos.at(0)->getTY(),
+                listaModelos.at(0)->getTZ(), listaModelos.at(0)->getTZ()
+                };
+        glLightfv(GL_LIGHT0, GL_POSITION, p_luz);
+    glPopMatrix();
+
+    //sistema local da camera
+    glPushMatrix();
+        //definindo sistema de coordenadas atraves do glulookat (eye,center,up)
+        transformacao_camera_2_global(cam2->e,cam2->c,cam2->u);
+        //desenhando eixos do sistema de coordenadas local da camera
+        Desenha::drawEixos( 0.5 );
+        //desenhando camera
+        glColor3d(0.5,0.5,0.0);
+        //desenha_camera(0.2);
+    glPopMatrix();
+
+    //posicao da luz
+    glPushMatrix();
+        glutGUI:: trans_luz = trans_luz;
+        GUI::setLight(0,
+                      listaModelos.at(0)->getTX(),
+                      listaModelos.at(0)->getTY(),
+                      listaModelos.at(0)->getTZ(),
+                      false,false);
+        //GUI::setLight(0,posicao_luz[0],posicao_luz[1],posicao_luz[2],false,false);
+        glLightfv(GL_LIGHT0, GL_POSITION, posicao_luz);
+    glPopMatrix();
+
+
+   glPushMatrix();
+          glMultTransposeMatrixf( sombreamentoGlobal );
+          glDisable(GL_LIGHTING);
+          glColor3d(0.0,0.0,0.0);
+          if(listaModelos.size() > 0){
+              for (unsigned int index = 0; index < listaModelos.size(); ++index) {
+                  if( listaModelos.at(index)->isSombra()){
+                      listaModelos.at(index)->desenha();
+                  }
+              }
+          }
+          glEnable(GL_LIGHTING);
+    glPopMatrix();
+
+    //X
+    for (unsigned int index = 0; index < listaModelos.size(); ++index) {
+        glPushMatrix();
+        glMultTransposeMatrixf(sombra_x);
+        glDisable(GL_LIGHTING);
+        for (unsigned int index = 0; index < listaModelos.size(); ++index) {
+            if( listaModelos.at(index)->isSombra()){
+                listaModelos.at(index)->desenha();
+            }
+        }
+        glEnable(GL_LIGHTING);
+        glPopMatrix();
+    }
+
+    //Y
+    for (unsigned int index = 0; index < listaModelos.size(); ++index) {
+        glPushMatrix();
+        glMultTransposeMatrixf(sombra_y);
+        glDisable(GL_LIGHTING);
+        for (unsigned int index = 0; index < listaModelos.size(); ++index) {
+            if( listaModelos.at(index)->isSombra()){
+                listaModelos.at(index)->desenha();
+            }
+        }
+        glEnable(GL_LIGHTING);
+        glPopMatrix();
+    }
+
+    //Z
+    for (unsigned int index = 0; index < listaModelos.size(); ++index) {
+        glPushMatrix();
+        glMultTransposeMatrixf(sombra_z);
+        glDisable(GL_LIGHTING);
+        for (unsigned int index = 0; index < listaModelos.size(); ++index) {
+            if( listaModelos.at(index)->isSombra()){
+                listaModelos.at(index)->desenha();
+            }
+        }
+        glEnable(GL_LIGHTING);
+        glPopMatrix();
+    }
+
+    //Padrao
+    glPushMatrix();
         if(listaModelos.size() > 0){
             for (unsigned int index = 0; index < listaModelos.size(); ++index) {
                 listaModelos.at(index)->desenha();
             }
         }
+    glPopMatrix();
 
-        glPopMatrix();
+    //Escape
+    glPopMatrix();
 
     displayEnd();
+}
+
+void OGLWidget::displayPerspective(){
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    const float ar = height>0 ? (float) width / (float) height : 1.0;
+
+    glViewport(0, 0, width, height);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    /*
+    float zNeg[16] = {
+                            1.0, 0.0, 0.0, 0.0,
+                            0.0, 1.0, 0.0, 0.0,
+                            0.0, 0.0,-1.0, 0.0,
+                            0.0, 0.0, 0.0, 1.0
+                    };
+
+    glMultTransposeMatrixf( zNeg );
+*/
+
+
+    gluPerspective(50.0, ar, 1, 1000);
+
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    gluLookAt(cam->e.x,cam->e.y,cam->e.z, cam->c.x,cam->c.y,cam->c.z, cam->u.x,cam->u.y,cam->u.z);
+}
+
+void OGLWidget::displayOrtho()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    const float ar = height>0 ? (float) width / (float) height : 1.0;
+
+    glViewport(0, 0, width, height);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    /*
+    float zNeg[16] = {
+                            1.0, 0.0, 0.0, 0.0,
+                            0.0, 1.0, 0.0, 0.0,
+                            0.0, 0.0,-1.0, 0.0,
+                            0.0, 0.0, 0.0, 1.0
+                    };
+
+    glMultTransposeMatrixf( zNeg );
+    */
+
+    /*
+        glOrtho(left, right, bottom, top, near, far)
+        left: minimum x we see
+        right: maximum x we see
+        bottom: minimum y we see
+        top: maximum y we see
+        -near: minimum z we see. Yes, this is -1 times near. So a negative input means positive z.
+        -far: maximum z we see. Also negative.
+    */
+    glOrtho(-4.0 * ar, 4.0 * ar, -1.0, 5.0, 0.1, 100);
+
+
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    gluLookAt(cam->e.x,cam->e.y,cam->e.z, cam->c.x,cam->c.y,cam->c.z, cam->u.x,cam->u.y,cam->u.z);
 }
 
 void OGLWidget::displayInit()
@@ -206,6 +438,19 @@ void OGLWidget::keyPressEvent(QKeyEvent *event)
         if(!listaModelos.empty()){
             listaModelos.erase (listaModelos.begin()+cont);
         }
+        break;
+    case Qt::Key_S:
+        if(!listaModelos.empty()){
+            if((listaModelos[cont])->isSelecionado()){
+                (listaModelos[cont])->setSombra(!(listaModelos[cont])->isSombra());
+            }
+        }
+        break;
+    case Qt::Key_P:
+        isPerspective = !isPerspective;
+        break;
+    case Qt::Key_O:
+        isOrtogonal = !isOrtogonal;
         break;
     }
 }
@@ -466,6 +711,14 @@ void OGLWidget::carregarModelo3D3DS(string caminho, string nome)
 {
     const char * c = caminho.c_str();
     listaModelos.push_back(new TdsModelLoader(c, nome));
+}
+
+void OGLWidget::iniciaLuz()
+{
+    Luz * luz = new Luz(5.0,5.0,5.0,
+                        0.0,0.0,0.0,
+                        1.0,1.0,1.0);
+    this->listaModelos.push_back(luz);
 }
 
 void OGLWidget::carregaCamera()

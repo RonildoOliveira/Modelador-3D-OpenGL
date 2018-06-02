@@ -4,12 +4,19 @@
 
 using namespace std;
 
-Luz::Luz() { this->nome = "Luz"; }
+Luz::Luz()
+{
+    this->indexLight ++;
+    this->nome = "Luz";
+}
+
 Luz::Luz(
         float tx, float ty, float tz,
         float ax, float ay, float az,
         float sx, float sy, float sz)
 {
+    this->indexLight ++;
+
     this->tx = tx;
     this->ty = ty;
     this->tz = tz;
@@ -72,8 +79,13 @@ int Luz::getSlices() { return this->slices; }
 int Luz::getStacks() { return this->stacks; }
 
 void Luz::desenha(){
+    //habilitando transparencias
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     //sistema local
     glPushMatrix();
+
         //composicao de transformacoes
         glTranslated(this->getTX(),this->getTY(),this->getTZ());
 
@@ -83,26 +95,22 @@ void Luz::desenha(){
 
         glScaled(this->getSX(),this->getSX(),this->getSZ());
 
-        //desenhando eixos do sistema de coordenadas local 1
-        if(isEixo()){
-            Desenha::drawEixos( 0.2 );
+        //desenhando objeto
+        if(isSelecionado()){
+            glColor4f(0.22,1.0,0.07,1);
+        }
+        else{
+            glColor4f(1,1,1,0);
         }
 
-        //desenhando objeto
-          if(isSelecionado()){
-              glColor3f(0.22,1.0,0.07);
-          }
-          else{
-              glColor3f(1,1,1);
-          }
+        //glTranslatef(this->getTX(),this->getTY(),this->getTZ());
+        gluSphere(gluNewQuadric(),this->innerRadius, this->slices, this->stacks);
+        glutGUI::trans_luz = trans_luz;
+        GUI::setLight(indexLight, 0, 0, 0, false, false);
 
-          //glTranslatef(this->getTX(),this->getTY(),this->getTZ());
-          gluSphere(gluNewQuadric(),this->innerRadius, this->slices, this->stacks);
-          glutGUI::trans_luz = trans_luz;
-          GUI::setLight(0, 0, 0, 0, false, false);
-          //GUI::setLight(0,posicao_luz[0],posicao_luz[1],posicao_luz[2],false,false);
-          GLfloat posicao_luz[] = {this->getTX(),this->getTY(),this->getTZ(),1.0f};
-          glLightfv(GL_LIGHT0, GL_POSITION, posicao_luz);
+        //GUI::setLight(0,posicao_luz[0],posicao_luz[1],posicao_luz[2],false,false);
+        GLfloat posicao_luz[] = {this->getTX(),this->getTY(),this->getTZ(),1.0f};
+        glLightfv(GL_LIGHT0, GL_POSITION, posicao_luz);
 
     glPopMatrix();
 }
@@ -114,6 +122,10 @@ float Luz::getOutterRadius() { return this->outterRadius; }
 void Luz::setOutterRadius(float outterRadius) { this->outterRadius = outterRadius; }
 
 bool Luz::isSelecionado() { return this->selecionado; }
+
+void Luz::setSombra(bool sombra) { this->sombra = sombra; }
+bool Luz::isSombra() { return this->sombra; }
+
 void Luz::setSelecionado(bool selecionado) { this->selecionado = selecionado; }
 
 void Luz::setEixo(bool eixo) { this->eixo = eixo; }

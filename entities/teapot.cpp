@@ -66,6 +66,9 @@ bool Teapot::isSelecionado(){
 void Teapot::setEixo(bool eixo) { this->eixo = eixo; }
 bool Teapot::isEixo() { return this->eixo; }
 
+void Teapot::setSombra(bool sombra) { this->sombra = sombra; }
+bool Teapot::isSombra() { return this->sombra; }
+
 string Teapot::getNome()
 {
     return this->nome;
@@ -104,8 +107,11 @@ void Teapot::desenha()
         if(isSelecionado()){
             glColor3f(0.22,1.0,0.07);
         }
+        else if (isSombra()){
+            glColor3f(0.0,0.0,0.0);
+        }
         else{
-            glColor3f(0.5,0.5,0.5);
+            glColor3f(0.8,0.5,0.5);
         }
 
         glutSolidTeapot(this->getSize());

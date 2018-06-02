@@ -22,6 +22,8 @@ public:
     void initializeGL();
     void paintGL();
         void displayInit();
+        void displayPerspective();
+        void displayOrtho();
         void displayEnd();
     void resizeGL(int w, int h);
 
@@ -63,6 +65,7 @@ public:
     void carregarModelo3DOBJ(string caminho, string nome);
     void carregarModelo3D3DS(string caminho, string nome);
 
+    void iniciaLuz();
     void carregaCamera();
     void salvaCamera();
 

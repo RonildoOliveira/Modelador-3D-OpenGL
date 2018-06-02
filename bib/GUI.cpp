@@ -112,12 +112,15 @@ void GUI::displayEnd()
 
 void GUI::setLight(int id, float posx, float posy, float posz, bool onOffKeyDefault, bool attenuated, bool low, bool hidden, bool pontual, bool spot, bool onOffUserControl) {
     if (!onOffKeyDefault) glutGUI::enabled_light[id] = onOffUserControl;
+
     glutGUI::hidden_light[id] = hidden;
     glutGUI::pontual_light[id] = pontual;
     glutGUI::spot_light[id] = spot;
+
     //habilita/desabilita luz
     if (glutGUI::iluminacao && glutGUI::enabled_light[id]) glEnable(GL_LIGHT0+id);
     else glDisable(GL_LIGHT0+id);
+
     //definindo intensidades de cor da luz
     GLfloat light_ambient[]  = { 0.2f, 0.2f, 0.2f, 1.0f };
     GLfloat light_diffuse[]  = { 0.7f, 0.7f, 0.7f, 1.0f };
@@ -130,10 +133,12 @@ void GUI::setLight(int id, float posx, float posy, float posz, bool onOffKeyDefa
     glLightfv(GL_LIGHT0+id, GL_AMBIENT,  light_ambient);
     glLightfv(GL_LIGHT0+id, GL_DIFFUSE,  light_diffuse);
     glLightfv(GL_LIGHT0+id, GL_SPECULAR, light_specular);
+
     //posicionando a luz
     GLfloat light_position[] = { posx + glutGUI::lx, posy + glutGUI::ly, posz + glutGUI::lz, 1.0f };
         if (!glutGUI::pontual_light[id]) light_position[3] = 0.0f;
     glLightfv(GL_LIGHT0+id, GL_POSITION, light_position);
+
     //desenha uma esfera representando a luz
     if (glutGUI::iluminacao && glutGUI::enabled_light[id] && !glutGUI::hidden_light[id]) {
         glDisable(GL_LIGHTING);
@@ -144,16 +149,18 @@ void GUI::setLight(int id, float posx, float posy, float posz, bool onOffKeyDefa
         glPopMatrix();
         glEnable(GL_LIGHTING);
     }
+
     //desenha uma linha do (0,0,0) ate a posicao da luz
     if (glutGUI::iluminacao && glutGUI::enabled_light[id] && glutGUI::trans_luz) {
         glDisable(GL_LIGHTING);
         glColor4f(1.0,1.0,1.0,1.0);
         glBegin(GL_LINES);
-            glVertex3f(0,0,0);
+            glVertex3f(1,0,0);
             glVertex4fv(light_position);
         glEnd();
         glEnable(GL_LIGHTING);
     }
+
     //spot_light
     if (glutGUI::spot_light[id]) {
         const GLfloat light_direction[] = { 0.0f, 0.0f, -1.0f, 1.0f }; //{ -(2.0f + lx), -(5.0f + ly), -(5.0f + lz), 1.0f };

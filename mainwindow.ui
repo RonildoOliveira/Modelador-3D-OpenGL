@@ -86,7 +86,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Del</string>
+     <string>DEL</string>
     </property>
    </widget>
    <widget class="QPushButton" name="eixoButton">
@@ -329,6 +329,19 @@
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="sombraButton">
+    <property name="geometry">
+     <rect>
+      <x>1160</x>
+      <y>540</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SMB</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -392,8 +405,16 @@
     <addaction name="separator"/>
     <addaction name="actionLuz"/>
    </widget>
+   <widget class="QMenu" name="menuViews">
+    <property name="title">
+     <string>Views</string>
+    </property>
+    <addaction name="actionPerspectiva"/>
+    <addaction name="actionOrtogonal"/>
+   </widget>
    <addaction name="menuArquivo"/>
    <addaction name="menuAdicionar"/>
+   <addaction name="menuViews"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -493,6 +514,16 @@
   <action name="actionLuz">
    <property name="text">
     <string>Luz</string>
+   </property>
+  </action>
+  <action name="actionPerspectiva">
+   <property name="text">
+    <string>Perspectiva</string>
+   </property>
+  </action>
+  <action name="actionOrtogonal">
+   <property name="text">
+    <string>Ortogonal</string>
    </property>
   </action>
  </widget>

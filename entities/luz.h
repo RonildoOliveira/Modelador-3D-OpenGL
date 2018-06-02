@@ -71,6 +71,9 @@ public:
     void setSelecionado(bool selecionado) override;
     bool isSelecionado() override;
 
+    void setSombra(bool sombra) override;
+    bool isSombra() override;
+
     void setEixo(bool eixo) override;
     bool isEixo() override;
 
@@ -78,6 +81,8 @@ public:
 
 private:
     std::string nome = "Luz";
+
+    int indexLight = -1;
 
     float innerRadius = 0.2;
     float outterRadius = 0.8;
@@ -103,7 +108,8 @@ private:
     float sz = 1.0;
 
     bool selecionado = false;
-    bool eixo = true;
+    bool sombra = false;
+    bool eixo = false;
 };
 
 #endif // LUZ_H

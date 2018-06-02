@@ -67,6 +67,9 @@ bool Cube::isSelecionado(){
 void Cube::setEixo(bool eixo) { this->eixo = eixo; }
 bool Cube::isEixo() { return this->eixo; }
 
+void Cube::setSombra(bool sombra) { this->sombra = sombra; }
+bool Cube::isSombra() { return this->sombra; }
+
 string Cube::getNome()
 {
     return this->nome;
@@ -105,8 +108,11 @@ void Cube::desenha()
         if(isSelecionado()){
             glColor3f(0.22,1.0,0.07);
         }
+        else if (isSombra()){
+            glColor3f(0.0,0.0,0.0);
+        }
         else{
-            glColor3f(0.5,0.5,0.5);
+            glColor3f(0.3,0.8,0.9);
         }
 
         glutSolidCube(this->getSize());

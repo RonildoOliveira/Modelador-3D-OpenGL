@@ -37,6 +37,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionCachorro, &QAction::triggered, this, &MainWindow::addCachorro);
     connect(ui->actionLobo, &QAction::triggered, this, &MainWindow::addLobo);
 
+    connect(ui->actionPerspectiva, &QAction::triggered, this, &MainWindow::mudarPerspectiva);
+    connect(ui->actionOrtogonal, &QAction::triggered, this, &MainWindow::mudarOrtogonal);
+
     connect(ui->eixoXSlider, SIGNAL(valueChanged(int)), this, SLOT(xValueReceived(int)));
     connect(ui->eixoYSlider, SIGNAL(valueChanged(int)), this, SLOT(yValueReceived(int)));
     connect(ui->eixoZSlider, SIGNAL(valueChanged(int)), this, SLOT(zValueReceived(int)));
@@ -64,6 +67,12 @@ void MainWindow::on_nextObject_clicked(){
 
 void MainWindow::on_prevObject_clicked(){
     QKeyEvent * eve1 = new QKeyEvent (QEvent::KeyPress,Qt::Key_Left,Qt::NoModifier,"Key_Left");
+    ui->openGLWidget->keyPressEvent(eve1);
+}
+
+void MainWindow::on_sombraButton_clicked()
+{
+    QKeyEvent * eve1 = new QKeyEvent (QEvent::KeyPress,Qt::Key_S,Qt::NoModifier,"Key_S");
     ui->openGLWidget->keyPressEvent(eve1);
 }
 
@@ -176,6 +185,18 @@ void MainWindow::addCachorro()
 void MainWindow::addLobo()
 {
     ui->openGLWidget->addLoboListaModelos();
+}
+
+void MainWindow::mudarPerspectiva()
+{
+    QKeyEvent * eve1 = new QKeyEvent (QEvent::KeyPress,Qt::Key_P,Qt::NoModifier,"P");
+    ui->openGLWidget->keyPressEvent(eve1);
+}
+
+void MainWindow::mudarOrtogonal()
+{
+    QKeyEvent * eve1 = new QKeyEvent (QEvent::KeyPress,Qt::Key_O,Qt::NoModifier,"O");
+    ui->openGLWidget->keyPressEvent(eve1);
 }
 
 void MainWindow::xValueReceived(int x)

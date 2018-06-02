@@ -118,12 +118,16 @@ void Torus::desenha(){
           if(isSelecionado()){
               glColor3f(0.22,1.0,0.07);
           }
+          else if (isSombra()){
+              glColor3f(0.0,0.0,0.0);
+          }
           else{
-              glColor3f(0.5,0.5,0.5);
+              glColor3f(0.1,0.0,0.8);
           }
 
         glutSolidTorus(this->getInnerRadius(),this->getOutterRadius(),
                        this->getSlices(),this->getStacks());
+
     glPopMatrix();
 }
 
@@ -147,24 +151,15 @@ void Torus::setOutterRadius(float outterRadius)
     this->outterRadius = outterRadius;
 }
 
-bool Torus::isSelecionado(){
-    return this->selecionado;
-}
+bool Torus::isSelecionado() { return this->selecionado; }
 
-void Torus::setEixo(bool eixo)
-{
-    this->eixo = eixo;
-}
+void Torus::setEixo(bool eixo) { this->eixo = eixo; }
+bool Torus::isEixo() { return this->eixo; }
 
-bool Torus::isEixo()
-{
-    return this->eixo;
-}
+void Torus::setSombra(bool sombra) { this->sombra = sombra; }
+bool Torus::isSombra() { return this->sombra; }
 
-string Torus::getNome()
-{
-    return this->nome;
-}
+string Torus::getNome() { return this->nome; }
 
 
 void Torus::setSelecionado(bool selecionado){

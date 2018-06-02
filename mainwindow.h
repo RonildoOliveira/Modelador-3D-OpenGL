@@ -23,6 +23,7 @@ private slots:
     void on_nextObject_clicked();
     void on_prevObject_clicked();
 
+    void on_sombraButton_clicked();
     void on_eixoButton_clicked();
     void on_aplicarTransformacao_clicked();
 
@@ -47,6 +48,9 @@ private slots:
     void addEsqueleto();
     void addCachorro();
     void addLobo();
+
+    void mudarPerspectiva();
+    void mudarOrtogonal();
 
     void xValueReceived(int x);
     void yValueReceived(int y);

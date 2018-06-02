@@ -174,8 +174,11 @@ void ObjModelLoader::desenha()
     if(isSelecionado()){
         glColor3f(0.22,1.0,0.07);
     }
+    else if (isSombra()){
+        glColor3f(0.0,0.0,0.0);
+    }
     else{
-        glColor3f(0.5,0.5,0.5);
+        glColor3f(0.5,0.5,0.0);
     }
 
 
@@ -290,6 +293,9 @@ int ObjModelLoader::getStacks(){}
 
 void ObjModelLoader::setSelecionado(bool selecionado) { this->selecionado = selecionado; }
 bool ObjModelLoader::isSelecionado() { return this->selecionado; }
+
+void ObjModelLoader::setSombra(bool sombra) { this->sombra = sombra; }
+bool ObjModelLoader::isSombra() { return this->sombra; }
 
 void ObjModelLoader::setEixo(bool eixo) { this->eixo = eixo; }
 bool ObjModelLoader::isEixo() { return this->eixo; }

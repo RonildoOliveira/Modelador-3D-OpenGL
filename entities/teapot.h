@@ -70,6 +70,9 @@ public:
     void setEixo(bool eixo) override;
     bool isEixo() override;
 
+    void setSombra(bool sombra) override;
+    bool isSombra() override;
+
     std::string getNome() override;
 
 private:
@@ -94,7 +97,8 @@ private:
     float sz = 1.0;
 
     bool selecionado = false;
-    bool eixo = true;
+    bool sombra = false;
+    bool eixo = false;
 };
 
 #endif // TEAPOT_H

@@ -85,10 +85,14 @@ void Tree::desenha(){
     if(isEixo()){
         Desenha::drawEixos( 0.5 );
     }
+
     //glColor3d(0,1,0);
     //desenhando objeto
     if(isSelecionado()){
         glColor3f(0.22,1.0,0.07);
+    }
+    else if (isSombra()){
+        glColor3f(0.0,0.0,0.0);
     }
     else{
         glColor3f(0.5,0.5,0.5);
@@ -123,6 +127,7 @@ void Tree::desenha(){
                     (i), slices, stacks);
         i+=0.5;
     }
+
     glPopMatrix();
 }
 
@@ -139,6 +144,9 @@ bool Tree::isEixo()
 {
     return this->eixo;
 }
+
+void Tree::setSombra(bool sombra) { this->sombra = sombra; }
+bool Tree::isSombra() { return this->sombra; }
 
 string Tree::getNome()
 {

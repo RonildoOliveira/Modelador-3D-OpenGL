@@ -104,7 +104,6 @@ void Cube::desenha()
         }
 
         //desenhando objeto
-
         if(isSelecionado()){
             glColor3f(0.22,1.0,0.07);
         }

@@ -93,6 +93,7 @@ void transformacao_camera_2_global(Vetor3D e, Vetor3D c, Vetor3D u, bool mostra_
 
 void OGLWidget::paintGL()
 {
+
     if(isPerspective){
         displayPerspective();
     }
@@ -363,7 +364,7 @@ void OGLWidget::displayInit()
 
 void OGLWidget::displayEnd()
 {
-
+    //glutSwapBuffers();
 }
 
 void OGLWidget::resizeGL(int w, int h)

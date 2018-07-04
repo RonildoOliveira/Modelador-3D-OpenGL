@@ -42,8 +42,8 @@ void OGLWidget::initializeGL()
     carregaCamera();
     iniciaLuz();
 
-    //glClearColor(1,1,1,1);
-    glClearColor(0,0,0,1);
+    glClearColor(1,1,1,1);
+    //glClearColor(0,0,0,1);
 
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
@@ -102,6 +102,34 @@ void OGLWidget::paintGL()
     }else{
         displayInit();
     }
+
+    //displayInit();
+
+    glPushMatrix();
+        glBegin(GL_POLYGON);
+        //glNormal3f(0,0,1);
+        glColor3f(1,1,1);
+            glVertex3d(  10, 0, -10 ); //4
+            glVertex3d(  10, 7, -10 ); //3
+            glVertex3d( -10, 7, -10 ); //2
+            glVertex3d( -10, 0, -10 ); //1
+        glEnd();
+
+        //Parede
+        glBegin(GL_POLYGON);
+        //glNormal3f(0,0,1);
+        glColor3f(1,1,1);
+            glVertex3d( -10, 0, -10);
+            glVertex3d( -10, 7, -10);
+            glVertex3d( -10, 7,  10);
+            glVertex3d( -10, 0,  10);
+        glEnd();
+    glPopMatrix();
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(cam->e.x,cam->e.y,cam->e.z, cam->c.x,cam->c.y,cam->c.z, cam->u.x,cam->u.y,cam->u.z);
+
     //sistema global
     glPushMatrix();
         //desenhando eixos do sistema de coordenadas global
@@ -111,13 +139,6 @@ void OGLWidget::paintGL()
         Desenha::drawGrid( 15, 0, 15, 1 );
     glPopMatrix();
 
-
-    float sombreamentoGlobal[16] = {
-        listaModelos.at(0)->getTY(), -listaModelos.at(0)->getTX(),                0.01,                0.0,
-        0.0,            0.01,                 0.0,                0.0,
-        0.0, -listaModelos.at(0)->getTZ(),      listaModelos.at(0)->getTY(),                0.0,
-        0.0, -listaModelos.at(0)->getTY(),                 0.0,      listaModelos.at(0)->getTY()
-    };
 
     float k_x = -9.95;
     float sombra_x[16] = {
@@ -200,21 +221,6 @@ void OGLWidget::paintGL()
         glLightfv(GL_LIGHT0, GL_POSITION, posicao_luz);
     glPopMatrix();
 
-
-   glPushMatrix();
-          glMultTransposeMatrixf( sombreamentoGlobal );
-          glDisable(GL_LIGHTING);
-          glColor3d(0.0,0.0,0.0);
-          if(listaModelos.size() > 0){
-              for (unsigned int index = 0; index < listaModelos.size(); ++index) {
-                  if( listaModelos.at(index)->isSombra()){
-                      listaModelos.at(index)->desenha();
-                  }
-              }
-          }
-          glEnable(GL_LIGHTING);
-    glPopMatrix();
-
     //X
     for (unsigned int index = 0; index < listaModelos.size(); ++index) {
         glPushMatrix();
@@ -283,18 +289,55 @@ void OGLWidget::displayPerspective(){
     glLoadIdentity();
 
     /*
+    gluPerspective(50.0, ar, 1, 1000);
+    void gluPerspective(	GLdouble fovy,
+    GLdouble aspect,
+    GLdouble zNear,
+    GLdouble zFar);
+    */
+
+    float near = 1;
+    float fovy = 50.0;
+    float top = tan(fovy/2) * near;
+    float bottom = -top;
+    float right = top * ar;
+    float left = -top * ar;
+    float M[4][4];
+
+    //Matriz de projecão
+    /*
+    M[0][0] = 2 * near / (right - left);
+    M[0][1] = 0;
+    M[0][2] = 0;
+    M[0][3] = 0;
+
+    M[1][0] = 0;
+    M[1][1] = 2 * near / (top - bottom);
+    M[1][2] = 0;
+    M[1][3] = 0;
+
+    M[2][0] = (right + left) / (right - left);
+    M[2][1] = (top + bottom) / (top - bottom);
+    M[2][2] = -(fovy + near) / (fovy - near);
+    M[2][3] = -1;
+
+    M[3][0] = 0;
+    M[3][1] = 0;
+    M[3][2] = -2 * fovy * near / (fovy - near);
+    M[3][3] = 0;
+    */
+
     float zNeg[16] = {
-                            1.0, 0.0, 0.0, 0.0,
-                            0.0, 1.0, 0.0, 0.0,
-                            0.0, 0.0,-1.0, 0.0,
-                            0.0, 0.0, 0.0, 1.0
-                    };
+        2 * near / (right - left), 0.0, 0.0, 0.0,
+        0.0, 2 * near / (top - bottom), 0.0, 0.0,
+        (right + left) / (right - left), (top + bottom) / (top - bottom),-(fovy + near) / (fovy - near), -1.0,
+        0.0, -2 * fovy * near / (fovy - near), 0.0, 1.0
+    };
 
-    glMultTransposeMatrixf( zNeg );
-*/
-
+    //glMultTransposeMatrixf( zNeg );
 
     gluPerspective(50.0, ar, 1, 1000);
+    //glFrustum(-10,10,-10,10, 1, 1000);
 
 
     glMatrixMode(GL_MODELVIEW);

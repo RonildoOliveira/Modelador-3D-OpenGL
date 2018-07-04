@@ -112,8 +112,6 @@ void Tree::desenha(){
                 mult*(GLdouble)numberCups/10,
                 (1.0), slices, stacks);
 
-
-
     GLfloat angle = 0.0;
     //Copas
     while (i <= numberCups) {
